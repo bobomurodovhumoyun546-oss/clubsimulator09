@@ -39,6 +39,8 @@ Player metadata and the existing photo credits are preserved. Many player images
 
 ## Production
 
+For Vercel hosting, use the included `vercel.json` and serverless API with a Turso database. See [Vercel setup (Uzbek)](docs/vercel.md) for the two environment variables and deployment steps. Local development continues to use SQLite. The Vercel API supports accounts and career saves; the current in-memory friends/live-match service requires a persistent Node server.
+
 ```powershell
 npm run build
 npm start
