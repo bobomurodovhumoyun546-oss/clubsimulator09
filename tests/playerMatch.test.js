@@ -1,0 +1,13 @@
+﻿import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createEngine,stepEngine,kick,engineResult} from '../src/match/engine.js';
+const roles=['GK','LB','CB','CB','RB','CM','CM','CAM','LW','ST','RW'];
+const players=Array.from({length:22},(_,i)=>({id:`p${i}`,fullName:`Player ${i}`,positions:[roles[i%11]],cardOverall:80,careerClubs:[]}));
+const club={lineup:players.slice(0,11).map(p=>p.id),training:{},tactics:'balanced'};
+const create=()=>createEngine(club,players,roles,players.slice(11).map((p,i)=>({id:p.id,role:roles[i]})));
+test('engine uses real XI and trained ratings',()=>{const s=create();assert.equal(s.players.length,22);assert.deepEqual(s.players.slice(0,11).map(p=>p.id),club.lineup);assert.ok(s.players.every(p=>Number.isFinite(p.x)&&Number.isFinite(p.y)));});
+test('pause freezes physics and clock; mode preserves state',()=>{const s=create();s.restart=0;s.paused=true;stepEngine(s,.05,{x:1});assert.equal(s.time,0);s.mode='auto';assert.equal(s.players[9].id,'p9');});
+test('shot releases independent ball and records an attempt',()=>{const s=create();s.owner=9;kick(s,'shot',1,{},()=>.5);assert.equal(s.owner,null);assert.equal(s.stats[0].shots,1);assert.ok(s.ball.vx>0);});
+test('goal crosses line and result retains scorer identity',()=>{const s=create();s.restart=0;s.ball={x:104.9,y:34,z:0,vz:0,vx:40,vy:0};s.last={id:'p9',name:'Player 9',team:0,kind:'shot'};stepEngine(s,.05,{},()=>.99);assert.equal(s.score[0],1);assert.equal(engineResult(s).log[0].playerId,'p9');});
+test('half time pauses; full time finishes at 90',()=>{const s=create();s.restart=0;s.time=179.99;stepEngine(s,.05);assert.ok(s.paused&&s.half);s.paused=false;s.restart=0;s.time=359.99;stepEngine(s,.05);assert.equal(s.minute,90);assert.ok(engineResult(s).finished);});
+test('AI keeper distributes possession instead of stalling',()=>{const s=create();s.mode='auto';s.restart=0;s.owner=0;s.players[0].cooldown=0;stepEngine(s,1/60,{},()=>.5);assert.equal(s.last?.id,'p0');assert.equal(s.last?.kind,'long');});

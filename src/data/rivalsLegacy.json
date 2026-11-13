@@ -1,0 +1,194 @@
+[
+  {
+    "name": "Luis Suárez",
+    "overall": 100,
+    "index": 30,
+    "side": "blue",
+    "rival": "Karim Benzema",
+    "addedTier": true
+  },
+  {
+    "name": "Karim Benzema",
+    "overall": 100,
+    "index": 31,
+    "side": "red",
+    "rival": "Luis Suárez",
+    "addedTier": true
+  },
+  {
+    "name": "Wayne Rooney",
+    "overall": 100,
+    "index": 32,
+    "side": "blue",
+    "rival": "Sergio Aguero",
+    "addedTier": true
+  },
+  {
+    "name": "Sergio Aguero",
+    "overall": 100,
+    "index": 33,
+    "side": "red",
+    "rival": "Wayne Rooney",
+    "addedTier": true
+  },
+  {
+    "name": "Rio Ferdinand",
+    "overall": 99,
+    "index": 34,
+    "side": "blue",
+    "rival": "Jamie Carragher",
+    "addedTier": true
+  },
+  {
+    "name": "Jamie Carragher",
+    "overall": 99,
+    "index": 35,
+    "side": "red",
+    "rival": "Rio Ferdinand",
+    "addedTier": true
+  },
+  {
+    "name": "Didier Drogba",
+    "overall": 99,
+    "index": 36,
+    "side": "blue",
+    "rival": "Fernando Torres",
+    "addedTier": true
+  },
+  {
+    "name": "Fernando Torres",
+    "overall": 99,
+    "index": 37,
+    "side": "red",
+    "rival": "Didier Drogba",
+    "addedTier": true
+  },
+  {
+    "name": "Nani",
+    "overall": 98,
+    "index": 38,
+    "side": "blue",
+    "rival": "Pedro Rodríguez",
+    "addedTier": true
+  },
+  {
+    "name": "Pedro Rodríguez",
+    "overall": 98,
+    "index": 39,
+    "side": "red",
+    "rival": "Nani",
+    "addedTier": true
+  },
+  {
+    "name": "Dimitar Berbatov",
+    "overall": 98,
+    "index": 40,
+    "side": "blue",
+    "rival": "Carlos Tévez",
+    "addedTier": true
+  },
+  {
+    "name": "Carlos Tévez",
+    "overall": 98,
+    "index": 41,
+    "side": "red",
+    "rival": "Dimitar Berbatov",
+    "addedTier": true
+  },
+  {
+    "name": "Xabi Alonso",
+    "overall": 97,
+    "index": 42,
+    "side": "blue",
+    "rival": "Sergio Busquets",
+    "addedTier": true
+  },
+  {
+    "name": "Sergio Busquets",
+    "overall": 97,
+    "index": 43,
+    "side": "red",
+    "rival": "Xabi Alonso",
+    "addedTier": true
+  },
+  {
+    "name": "Mesut Özil",
+    "overall": 97,
+    "index": 44,
+    "side": "blue",
+    "rival": "Cesc Fàbregas",
+    "addedTier": true
+  },
+  {
+    "name": "Cesc Fàbregas",
+    "overall": 97,
+    "index": 45,
+    "side": "red",
+    "rival": "Mesut Özil",
+    "addedTier": true
+  },
+  {
+    "name": "Park Ji-sung",
+    "overall": 96,
+    "index": 46,
+    "side": "blue",
+    "rival": "Pablo Zabaleta",
+    "addedTier": true
+  },
+  {
+    "name": "Pablo Zabaleta",
+    "overall": 96,
+    "index": 47,
+    "side": "red",
+    "rival": "Park Ji-sung",
+    "addedTier": true
+  },
+  {
+    "name": "Dirk Kuyt",
+    "overall": 96,
+    "index": 48,
+    "side": "blue",
+    "rival": "Michael Essien",
+    "addedTier": true
+  },
+  {
+    "name": "Michael Essien",
+    "overall": 96,
+    "index": 49,
+    "side": "red",
+    "rival": "Dirk Kuyt",
+    "addedTier": true
+  },
+  {
+    "name": "Ashley Young",
+    "overall": 95,
+    "index": 50,
+    "side": "blue",
+    "rival": "John Arne Riise",
+    "addedTier": true
+  },
+  {
+    "name": "John Arne Riise",
+    "overall": 95,
+    "index": 51,
+    "side": "red",
+    "rival": "Ashley Young",
+    "addedTier": true
+  },
+  {
+    "name": "Antonio Valencia",
+    "overall": 95,
+    "index": 52,
+    "side": "blue",
+    "rival": "Aleksandar Kolarov",
+    "addedTier": true
+  },
+  {
+    "name": "Aleksandar Kolarov",
+    "overall": 95,
+    "index": 53,
+    "side": "red",
+    "rival": "Antonio Valencia",
+    "addedTier": true
+  }
+]

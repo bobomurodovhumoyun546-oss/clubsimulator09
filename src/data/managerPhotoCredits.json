@@ -1,0 +1,256 @@
+[
+  {
+    "id": "zidane",
+    "name": "Zinedine Zidane",
+    "page": "https://in.pinterest.com/pin/500884789777957683/",
+    "image": "https://i.pinimg.com/originals/56/db/d0/56dbd0e54050fe451896afd3471443a4.jpg",
+    "commons": null
+  },
+  {
+    "id": "master",
+    "name": "Sir Alex Ferguson",
+    "page": "https://en.wikipedia.org/wiki/Alex_Ferguson",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/1/14/Alex_Ferguson.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "commons": "https://commons.wikimedia.org/wiki/File:Alex_Ferguson.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "author": "",
+    "license": ""
+  },
+  {
+    "id": "guardiola",
+    "name": "Pep Guardiola",
+    "page": "https://www.pinterest.com/pin/josep-guardiola-photostream--483222235003026619/",
+    "image": "https://i.pinimg.com/originals/d3/de/09/d3de096db7154a78d11b83143085be4c.jpg",
+    "commons": null
+  },
+  {
+    "id": "ancelotti",
+    "name": "Carlo Ancelotti",
+    "page": "https://en.wikipedia.org/wiki/Carlo_Ancelotti",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Carlo_Ancelotti_Brazil_V_Morocco_13_June_2026-47.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "commons": "https://commons.wikimedia.org/wiki/File:Carlo_Ancelotti_Brazil_V_Morocco_13_June_2026-47.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "author": "",
+    "license": ""
+  },
+  {
+    "id": "cruyff",
+    "name": "Johan Cruyff",
+    "page": "https://x.com/UEFAcom/status/712989809095139328",
+    "image": "https://pbs.twimg.com/media/CeUMc-NW4AAG5de.jpg",
+    "commons": null
+  },
+  {
+    "id": "mourinho",
+    "name": "José Mourinho",
+    "page": "https://www.asroma.com/en/news/61363/jose-mourinho-the-first-interview-in-full",
+    "image": "https://media.asroma.com/prod/images/gm_preview/dc73febd0437-mourinhowidesuite4z2nk.png",
+    "commons": null
+  },
+  {
+    "id": "klopp",
+    "name": "Jürgen Klopp",
+    "page": "https://www.empireofthekop.com/2022/02/22/jurgen-klopps-2016-wembley-suit-and-whether-its-likely-to-see-it-in-2022/",
+    "image": "https://www.empireofthekop.com/wp-content/uploads/2022/02/Screenshot-2022-02-22-1.26.49-PM.jpg",
+    "commons": null
+  },
+  {
+    "id": "enrique",
+    "name": "Luis Enrique",
+    "page": "https://www.semana.es/corazon/la-hija-luis-enrique-sira-martinez-ferran-torres-derrochan-pasion-playas-doha_2565019",
+    "image": "https://content.semana.es/medio/2022/11/semana-luis-enrique-recuerda-a-su-hija-xana-que-murio-a-los-nueve-anos-1-900x900.jpg",
+    "commons": null
+  },
+  {
+    "id": "elite",
+    "name": "Hansi Flick",
+    "page": "https://en.wikipedia.org/wiki/Hansi_Flick",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/0/04/2022_Hansi_Flick_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "commons": "https://commons.wikimedia.org/wiki/File:2022_Hansi_Flick_(cropped).jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "author": "",
+    "license": ""
+  },
+  {
+    "id": "deschamps",
+    "name": "Didier Deschamps",
+    "page": "https://en.wikipedia.org/wiki/Didier_Deschamps",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/9/95/Didier_Deschamps_France_v_Senegal_16_June_2026-294.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "commons": "https://commons.wikimedia.org/wiki/File:Didier_Deschamps_France_v_Senegal_16_June_2026-294.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "author": "",
+    "license": ""
+  },
+  {
+    "id": "de-la-fuente",
+    "name": "Luis de la Fuente",
+    "page": "https://en.wikipedia.org/wiki/Luis_de_la_Fuente_(footballer%2C_born_1961)",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/37/Luis_de_la_Fuente_Argentina_v_Spain_19_July_2026-271_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "commons": "https://commons.wikimedia.org/wiki/File:Luis_de_la_Fuente_Argentina_v_Spain_19_July_2026-271_(cropped).jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "author": "",
+    "license": ""
+  },
+  {
+    "id": "scaloni",
+    "name": "Lionel Scaloni",
+    "page": "https://www.eldiarioar.com/deportes/mundial-qatar-2022/scaloni-modelo-seleccion-presento-ropa-gala-qatar-2022_1_9680540.html",
+    "image": "https://static.eldiario.es/clip/1e9435e5-f779-4254-9dbb-e0aea65dd577_source-aspect-ratio_default_0.jpg",
+    "commons": null
+  },
+  {
+    "id": "tuchel",
+    "name": "Thomas Tuchel",
+    "page": "https://www.espn.com/soccer/story/_/id/41813179/thomas-tuchel-new-england-manager-fa-announcement",
+    "image": "https://a4.espncdn.com/combiner/i?img=%2Fphoto%2F2024%2F1015%2Fr1400923_1296x729_16-9.jpg",
+    "commons": null
+  },
+  {
+    "id": "kompany",
+    "name": "Vincent Kompany",
+    "page": "https://m.allfootballapp.com/news/EPL/Kompanys-rollercoaster-return-to-Anderlecht/2240997",
+    "image": "https://img.allfootballapp.com/www/M00/6F/6A/720x-/-/-/rB8ApF5OdmqAEM6PAABAQV0tBSM747.jpg.webp",
+    "commons": null
+  },
+  {
+    "id": "alonso",
+    "name": "Xabi Alonso",
+    "page": "https://en.wikipedia.org/wiki/Xabi_Alonso",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Los_Caminos_del_f%C3%BAtbol._Xabi_Alonso_%2839666778464%29_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "commons": "https://commons.wikimedia.org/wiki/File:Los_Caminos_del_fútbol._Xabi_Alonso_(39666778464)_(cropped).jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "author": "",
+    "license": ""
+  },
+  {
+    "id": "arteta",
+    "name": "Mikel Arteta",
+    "page": "https://www.sportinglife.com/football/news/arteta-set-for-arsenal-move/175301",
+    "image": "https://www.sportinglife.com/images/news/1800x1013/91c08c99-6592-41f4-87b7-1b8a7ac17874.jpg",
+    "commons": null
+  },
+  {
+    "id": "conte",
+    "name": "Antonio Conte",
+    "page": "https://en.wikipedia.org/wiki/Antonio_Conte",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/c6/20150616_Antonio_Conte.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "commons": "https://commons.wikimedia.org/wiki/File:20150616_Antonio_Conte.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "author": "",
+    "license": ""
+  },
+  {
+    "id": "tactician",
+    "name": "Arsène Wenger",
+    "page": "https://en.wikipedia.org/wiki/Ars%C3%A8ne_Wenger",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/87/25th_Laureus_World_Sports_Awards_-_Red_Carpet_-_Ars%C3%A8ne_Wenger_-_240422_192850_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "commons": "https://commons.wikimedia.org/wiki/File:25th_Laureus_World_Sports_Awards_-_Red_Carpet_-_Arsène_Wenger_-_240422_192850_(cropped).jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "author": "",
+    "license": ""
+  },
+  {
+    "id": "nagelsmann",
+    "name": "Julian Nagelsmann",
+    "page": "https://www.mid-day.com/sports/football/article/its-just-the-beginning-23354319",
+    "image": "https://images.mid-day.com/images/images/2024/jun/julan-gembnay-b_e.jpg",
+    "commons": null
+  },
+  {
+    "id": "academy",
+    "name": "Claudio Ranieri",
+    "page": "https://www.goal.com/it/liste/la-roma-e-ranieri-verso-l-addio-anticipato-cosa-e-successo-e-gli-scenari/blt2762a599fe1a00f7",
+    "image": "https://assets.goal.com/images/v3/bltb040a4b6a0f2a937/Claudio%20Ranieri%20Roma.jpg?auto=webp&format=pjpg&quality=60&width=1920",
+    "commons": null
+  },
+  {
+    "id": "emery",
+    "name": "Unai Emery",
+    "page": "https://en.wikipedia.org/wiki/Unai_Emery",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/0/07/Unai_Emery_-_Sevilla_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "commons": "https://commons.wikimedia.org/wiki/File:Unai_Emery_-_Sevilla_(cropped).jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "author": "",
+    "license": ""
+  },
+  {
+    "id": "wenger-rival",
+    "name": "Rafael Benítez",
+    "page": "https://en.wikipedia.org/wiki/Rafael_Ben%C3%ADtez",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Shahter-Reak_M_2015_%282%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "commons": "https://commons.wikimedia.org/wiki/File:Shahter-Reak_M_2015_(2).jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "author": "",
+    "license": ""
+  },
+  {
+    "id": "simeone",
+    "name": "Diego Simeone",
+    "page": "https://en.wikipedia.org/wiki/Diego_Simeone",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/9/9b/25th_Laureus_World_Sports_Awards_-_Red_Carpet_-_Diego_Simeone_-_240422_192621-2_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "commons": "https://commons.wikimedia.org/wiki/File:25th_Laureus_World_Sports_Awards_-_Red_Carpet_-_Diego_Simeone_-_240422_192621-2_(cropped).jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "author": "",
+    "license": ""
+  },
+  {
+    "id": "pochettino",
+    "name": "Mauricio Pochettino",
+    "page": "https://en.wikipedia.org/wiki/Mauricio_Pochettino",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/0/04/Mauricio_Pochettino_USMNT_v_Belgium_Mar_28_2026-2.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "commons": "https://commons.wikimedia.org/wiki/File:Mauricio_Pochettino_USMNT_v_Belgium_Mar_28_2026-2.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "author": "",
+    "license": ""
+  },
+  {
+    "id": "del-bosque",
+    "name": "Vicente del Bosque",
+    "page": "https://en.wikipedia.org/wiki/Vicente_del_Bosque",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Vicente_del_Bosque_Euro_2012_final.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "commons": "https://commons.wikimedia.org/wiki/File:Vicente_del_Bosque_Euro_2012_final.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "author": "",
+    "license": ""
+  },
+  {
+    "id": "capello",
+    "name": "Fabio Capello",
+    "page": "https://en.wikipedia.org/wiki/Fabio_Capello",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/3/3b/25th_Laureus_World_Sports_Awards_-_Red_Carpet_-_Fabio_Capello_-_240422_181452_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "commons": "https://commons.wikimedia.org/wiki/File:25th_Laureus_World_Sports_Awards_-_Red_Carpet_-_Fabio_Capello_-_240422_181452_(cropped).jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "author": "",
+    "license": ""
+  },
+  {
+    "id": "bielsa",
+    "name": "Marcelo Bielsa",
+    "page": "https://www.13.cl/amp/ar13/magazine/revisa-las-fotos-de-marcelo-bielsa-cuando-joven",
+    "image": "https://s.13.cl/sites/default/files/inline-images/2016-07/marcelo-bielsa-joven.jpg",
+    "commons": null
+  },
+  {
+    "id": "sacchi",
+    "name": "Arrigo Sacchi",
+    "page": "https://www.lequipe.fr/Football/Article/Arrigo-sacchi-sur-le-renouveau-des-entraineurs-italiens-des-esprits-eclaires/1281796",
+    "image": "https://www.lequipe.fr/_medias/img-photo-jpg/arrigo-sacchi-ancien-entraineur-passe-notamment-par-l-ac-milan-lapresse-icon-sport/1500000001536265/222%3A31%2C1787%3A1596-828-828-75/0e208",
+    "commons": null
+  },
+  {
+    "id": "robson",
+    "name": "Sir Bobby Robson",
+    "page": "https://www.ogol.com.br/treinador/bobby-robson/124",
+    "image": "https://cdn-img.zerozero.pt/img/treinadores/124/124_pri__20260310151008_bobby_robson.jpg",
+    "commons": null
+  },
+  {
+    "id": "van-gaal",
+    "name": "Louis van Gaal",
+    "page": "https://en.wikipedia.org/wiki/Louis_van_Gaal",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/0/09/Louis_van_Gaal_2014.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "commons": "https://commons.wikimedia.org/wiki/File:Louis_van_Gaal_2014.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail_unscaled",
+    "author": "",
+    "license": ""
+  },
+  {
+    "id": "lippi",
+    "name": "Marcello Lippi",
+    "page": "https://commons.wikimedia.org/wiki/File%3AMarcello_Lippi_by_Martina_De_Siervo_-_International_Journalism_Festival_2010.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/72/Marcello_Lippi_by_Martina_De_Siervo_-_International_Journalism_Festival_2010.jpg",
+    "commons": null
+  },
+  {
+    "id": "heynckes",
+    "name": "Jupp Heynckes",
+    "page": "https://www.faz.net/aktuell/sport/fussball/bundesliga/jupp-heynckes-wohl-neuer-trainer-von-bayern-muenchen-15231673.html",
+    "image": "https://media0.faz.net/image/w1200h675/2320668ac859/w2869h1614x67y366/201304/1.5231689/ueberraschende-rueckkehr.webp",
+    "commons": null
+  }
+]

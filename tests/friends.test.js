@@ -1,0 +1,54 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import express from 'express';
+import {readFileSync} from 'node:fs';
+import {createAccountRouter} from '../backend/routes/accounts.js';
+import {openAccountStore} from '../backend/utils/accountStore.js';
+import {createOnlineMatches} from '../backend/utils/onlineMatches.js';
+import {normalizePlayers} from '../src/games/core/players.js';
+import {simulatorCards} from '../src/features/simulatorCards.js';
+import {initialClub} from '../src/features/clubSimulator.js';
+const cards=simulatorCards(normalizePlayers(JSON.parse(readFileSync(new URL('../public/game-data/players.json',import.meta.url),'utf8'))));
+async function setup(){const db=openAccountStore(':memory:');let clock=100000;const online=createOnlineMatches(db,{players:cards,now:()=>clock,autoTick:false});const router=createAccountRouter(db,{onlineMatches:online}),app=express();app.use(express.json({limit:'4mb'}));app.use('/api/auth',router);const server=await new Promise(r=>{const s=app.listen(0,'127.0.0.1',()=>r(s));});const base='http://127.0.0.1:'+server.address().port+'/api/auth';
+ const request=async(path,body,cookie)=>{const response=await fetch(base+path,{method:body?'POST':'GET',headers:{...(body?{'Content-Type':'application/json'}:{}),...(cookie?{Cookie:cookie}:{})},body:body?JSON.stringify(body):undefined});return {status:response.status,data:await response.json(),cookie:response.headers.get('set-cookie')?.split(';')[0]};};
+ const signup=async(name,email)=>{const r=await request('/signup',{name,email,password:'secure123'});assert.equal(r.status,200);return {...r.data.user,cookie:r.cookie};};
+ return {db,online,request,signup,advance:n=>clock+=n,close:async()=>{online.close();await new Promise(r=>server.close(r));db.close();}};
+}
+test('accounts search, consent, usernames and friend requests persist with private authorization',async()=>{const f=await setup();try{
+ const a=await f.signup('Alpha Manager','alpha@example.com'),b=await f.signup('Beta Manager','beta@example.com'),c=await f.signup('Other Manager','other@example.com');
+ assert.equal((await f.request('/friends')).status,401);
+ assert.equal((await f.request('/friends/username',{username:'my_alpha'},a.cookie)).status,200);assert.equal((await f.request('/friends/username',{username:'my_alpha'},b.cookie)).status,409);
+ const search=await f.request('/friends/search?q=beta%40example.com',null,a.cookie);assert.equal(search.data.users[0].id,b.id);assert.equal('email' in search.data.users[0],false);
+ assert.equal((await f.request('/friends/search?q=my_alpha',null,b.cookie)).data.users[0].id,a.id);
+ await f.request('/friends/request',{userId:b.id},a.cookie);await f.request('/friends/request',{userId:b.id},a.cookie);assert.equal(f.db.prepare('SELECT count(*) n FROM friendships').get().n,1);
+ assert.equal((await f.request('/friends/invite',{userId:b.id},a.cookie)).status,403);
+ assert.equal((await f.request('/friends/respond',{userId:a.id,accept:true},c.cookie)).status,404);assert.equal((await f.request('/friends/respond',{userId:b.id,accept:true},a.cookie)).status,404);
+ assert.equal((await f.request('/friends',null,b.cookie)).data.incoming.length,1);await f.request('/friends/respond',{userId:a.id,accept:true},b.cookie);
+ assert.equal((await f.request('/friends',null,a.cookie)).data.friends[0].id,b.id);assert.equal(f.db.prepare('SELECT status FROM friendships').get().status,'accepted');
+ await f.request('/friends/remove',{userId:b.id},a.cookie);assert.equal((await f.request('/friends',null,b.cookie)).data.friends.length,0);
+ }finally{await f.close();}});
+test('two accounts accept a match, control opposite teams, share score, reconnect and deny outsiders',async()=>{const f=await setup();try{
+ const a=await f.signup('Host','host@example.com'),b=await f.signup('Guest','guest@example.com'),c=await f.signup('Stranger','stranger@example.com');
+ const clubA={...initialClub(cards),name:'Alpha FC'},clubB={...initialClub(cards),name:'Beta FC',primary:'#ff2244',shape:'circle'};
+ for(const [u,club]of [[a,clubA],[b,clubB]])assert.equal((await f.request('/club-save',{club},u.cookie)).status,200);
+ await f.request('/friends/request',{userId:b.id},a.cookie);await f.request('/friends/respond',{userId:a.id,accept:true},b.cookie);
+ const invite=await f.request('/friends/invite',{userId:b.id},a.cookie);assert.equal(invite.status,200);
+ assert.equal((await f.request('/friends/invite/respond',{inviteId:invite.data.id,accept:true},c.cookie)).status,404);
+ const accepted=await f.request('/friends/invite/respond',{inviteId:invite.data.id,accept:true},b.cookie);assert.equal(accepted.status,200);const id=accepted.data.matchId;
+ assert.equal((await f.request('/friends/invite/respond',{inviteId:invite.data.id,accept:true},b.cookie)).data.matchId,id);
+ assert.equal((await f.request('/friends/match/'+id,null,c.cookie)).status,404);assert.equal((await f.request('/friends/match/'+id+'/input',{seq:1,x:1},c.cookie)).status,404);
+ const host=await f.request('/friends/match/'+id+'/join',{},a.cookie),guest=await f.request('/friends/match/'+id+'/join',{},b.cookie);assert.equal(host.data.team,0);assert.equal(guest.data.team,1);assert.equal(guest.data.state.kits[1].primary,'#ff2244');assert.equal(new Set(host.data.state.players.map(p=>p.id)).size,22);assert.ok(host.data.state.players.every(p=>p.cardId));
+ await f.request('/friends/match/'+id+'/input',{seq:1,x:1,y:0},a.cookie);await f.request('/friends/match/'+id+'/input',{seq:1,x:0,y:1},b.cookie);const room=f.online.rooms.get(id);
+ for(let i=0;i<20;i++){f.advance(16);f.online.tick(1/60);}const selected=room.state.players[room.state.selectedByTeam[1]];assert.equal(selected.team,1);assert.ok(selected.vy>0);
+ const snapshots=await Promise.all([f.request('/friends/match/'+id,null,a.cookie),f.request('/friends/match/'+id,null,b.cookie)]);assert.deepEqual(snapshots[0].data.state.score,snapshots[1].data.state.score);assert.deepEqual(snapshots[0].data.state.ball,snapshots[1].data.state.ball);assert.ok(snapshots[1].data.state.selected>=11);
+ const inputBefore=room.state.networkInputs[0].x;await f.request('/friends/match/'+id+'/input',{seq:0,x:-1},a.cookie);assert.equal(room.state.networkInputs[0].x,inputBefore);
+ f.advance(9000);f.online.tick();assert.equal(room.state.paused,true);await f.request('/friends/match/'+id+'/join',{},b.cookie);await f.request('/friends/match/'+id+'/input',{seq:2,x:0},a.cookie);f.online.tick();assert.equal(room.state.paused,false);
+ const left=await f.request('/friends/match/'+id+'/leave',{},a.cookie);assert.equal(left.data.state.finished,true);assert.ok(left.data.state.score[1]>=3);assert.equal(f.db.prepare('SELECT status FROM friend_matches WHERE id=?').get(id).status,'finished');
+ assert.deepEqual(JSON.parse(f.db.prepare('SELECT state FROM club_saves WHERE user_id=?').get(a.id).state),clubA);
+ }finally{await f.close();}});
+test('invalid XI and unowned players cannot create online matches; a disconnect gets a server result',async()=>{const f=await setup();try{
+ const a=await f.signup('A team','a-team@example.com'),b=await f.signup('B team','b-team@example.com');const club=initialClub(cards);
+ for(const u of [a,b])await f.request('/club-save',{club},u.cookie);
+ const invalid={...club,owned:[],lineup:club.lineup};await f.request('/club-save',{club:invalid},a.cookie);assert.throws(()=>f.online.create(a.id,b.id),e=>e.code==='needXI');await f.request('/club-save',{club},a.cookie);
+ const room=f.online.create(a.id,b.id);f.online.join(room.id,a.id);f.online.join(room.id,b.id);f.online.tick();f.advance(61000);f.online.control(room.id,b.id,{seq:1,x:0});f.online.tick();assert.equal(room.state.finished,true);assert.equal(room.reason,'disconnected');assert.ok(room.state.score[1]>=3);
+ }finally{await f.close();}});

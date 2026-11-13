@@ -1,0 +1,485 @@
+[
+  {
+    "name": "Pelé",
+    "overall": 105,
+    "imageSource": "https://assets.goal.com/images/v3/blt704b594ee6eb0ed2/2677.jpg?format=webp",
+    "image": "/player-headshots/rivals/01.webp",
+    "index": 0,
+    "side": "red"
+  },
+  {
+    "name": "Diego Maradona",
+    "overall": 105,
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY17vzRX3YbsfGrP1CxefixB93kB6WWL-5q94y3FAqYQ&s=10",
+    "image": "/player-headshots/rivals/02.jpg",
+    "index": 1,
+    "side": "blue"
+  },
+  {
+    "name": "Edwin van der Sar",
+    "overall": 105,
+    "index": 2,
+    "side": "red",
+    "originalUserImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJSswfe0hR7FBXhTR0xwOdvUrqNtrlFQuj4HsTzYdr1A&s=10",
+    "image": "/player-headshots/rivals/user-03-6ab9ea55.jpg",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM7Jr0W-fGlgQNT10bK6iez8RviFiEwt8dCrYzvCalCQ&s=10",
+    "imageAuthor": "User-supplied event portrait",
+    "imageLicense": "Rights retained by the original rights holder",
+    "portraitStyle": "photo"
+  },
+  {
+    "name": "Petr Čech",
+    "overall": 105,
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzutfrUeumYIbOKAgfPbTLx5eNiQhcz54coAWoUkFEQg&s=10",
+    "image": "/player-headshots/rivals/04.jpg",
+    "index": 3,
+    "side": "blue"
+  },
+  {
+    "name": "Paolo Maldini",
+    "overall": 105,
+    "index": 4,
+    "side": "red",
+    "originalUserImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJOS2ss26yu43eTi9mLryMubpuY_1dD3ABlsT3C9tjPQ&s=10",
+    "image": "/player-headshots/rivals/user-05-73616d83.jpg",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJOS2ss26yu43eTi9mLryMubpuY_1dD3ABlsT3C9tjPQ&s=10",
+    "imageAuthor": "User-supplied event portrait",
+    "imageLicense": "Rights retained by the original rights holder",
+    "portraitStyle": "photo"
+  },
+  {
+    "name": "Javier Zanetti",
+    "overall": 105,
+    "index": 5,
+    "side": "blue",
+    "originalUserImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgnxEdvs9AusBYuIKlFwa6tCTLTGv-bPw7UqEwnmpEdg&s=10",
+    "image": "/player-headshots/rivals/user-06-ebaf2005.jpg",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2v5mzZOwxlUs59fE0bcElrOv3txw-5ywOCWb21-YLpQ&s=10",
+    "imageAuthor": "User-supplied event portrait",
+    "imageLicense": "Rights retained by the original rights holder",
+    "portraitStyle": "photo"
+  },
+  {
+    "name": "Steven Gerrard",
+    "overall": 104,
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQo6--Or4kR7W1WylueRPh93BMXESsUvLEG9CJmz7Pmcg&s=10",
+    "image": "/player-headshots/rivals/07.jpg",
+    "index": 6,
+    "side": "red",
+    "replacesBallon": true
+  },
+  {
+    "name": "Frank Lampard",
+    "overall": 104,
+    "index": 7,
+    "side": "blue",
+    "replacesBallon": true,
+    "originalUserImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuMxA1ukiui4vTAtGviCh7xLPmHnogcCuFHDld6NJqxA&s=10",
+    "image": "/player-headshots/rivals/user-08-d35d661e.jpg",
+    "imageSource": "https://i.guim.co.uk/img/media/608a8c85faeb8104245155d8cf082cded92698fa/10_256_2177_1225/2177.jpg?width=465&dpr=1&s=none&crop=none",
+    "imageAuthor": "User-supplied event portrait",
+    "imageLicense": "Rights retained by the original rights holder",
+    "portraitStyle": "photo"
+  },
+  {
+    "name": "Vincent Kompany",
+    "overall": 104,
+    "index": 8,
+    "side": "blue",
+    "originalUserImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWZAJYaN1JCCJAVsHk7A8arD8-yvjw5OGAvYJy6LXy9Q&s=10",
+    "image": "/player-headshots/rivals/user-09-1fbabfd3.jpg",
+    "imageSource": "https://images.openai.com/static-rsc-4/P1IZBGmrEc7Do8LqkrDjjJOkwnDoNMwaMmMNpTlNMyn7HfbrI6--y_FcCtc7A_ku6oRJKdDjc-Cb4ZPmDNsrG9vVEHQ3mwbjt5pjbLRnJ8gFQ1iBk_dauBNq9CGPN-ghHxj2dvhS07CeeepJwyH1s4YQ_HxtK-bCZjtSXiDxDNc?purpose=inline",
+    "imageAuthor": "User-supplied event portrait",
+    "imageLicense": "Rights retained by the original rights holder",
+    "portraitStyle": "photo"
+  },
+  {
+    "name": "Nemanja Vidić",
+    "overall": 104,
+    "index": 9,
+    "side": "red",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMjfiRM41wnC5A4Ps4WFVLjfrb01gx2-vV_DPzqwva5g&s=10",
+    "image": "/player-headshots/rivals/10.jpg"
+  },
+  {
+    "name": "Gerard Piqué",
+    "overall": 104,
+    "index": 10,
+    "side": "blue",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxyPven30psWoD08wJvTuVl_sUxYJljxC6Gi4IM3OuEg&s=10",
+    "image": "/player-headshots/rivals/11.jpg"
+  },
+  {
+    "name": "Raphaël Varane",
+    "overall": 104,
+    "index": 11,
+    "side": "red",
+    "originalUserImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlEOzd2mn91bW3Az-aSOQR4V9bzp5OqlYf0rWjtIpsvQ&s=10",
+    "image": "/player-headshots/rivals/user-12-1cb293c4.jpg",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLGqZl7kr-aY1r0U1L0lrdd7olMKJk1gDm9cN-eSKi3A&s=10",
+    "imageAuthor": "User-supplied event portrait",
+    "imageLicense": "Rights retained by the original rights holder",
+    "portraitStyle": "photo"
+  },
+  {
+    "name": "Luis Díaz",
+    "overall": 103,
+    "index": 12,
+    "side": "blue",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMjzR7m7ip3T1TmsRlmULA5M_3BCQD_XcqYyLjGi-DWg&s=10",
+    "image": "/player-headshots/rivals/13.jpg"
+  },
+  {
+    "name": "Khvicha Kvaratskhelia",
+    "overall": 103,
+    "index": 13,
+    "side": "red",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSO5FitpKPTx5Ic_iSRB0aitx1wPWHYn_9VlVwrHGqjvQ&s=10",
+    "image": "/player-headshots/rivals/14.jpg",
+    "replacesBallon": true
+  },
+  {
+    "name": "Jude Bellingham",
+    "overall": 103,
+    "index": 14,
+    "side": "blue",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1y2F-D6HR7XW0l_xAjNIrjDIavQsiShuhxwN1lBKVrw&s=10",
+    "image": "/player-headshots/rivals/15.jpg",
+    "replacesBallon": true
+  },
+  {
+    "name": "Pedri",
+    "overall": 103,
+    "index": 15,
+    "side": "red",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr7rEJSXzwe58BVPslEaTvNdNnrgZ4GDeH4f5AYP9hlA&s=10",
+    "image": "/player-headshots/rivals/16.jpg",
+    "replacesBallon": true,
+    "portraitCentered": true,
+    "portraitPosition": "calc(50% - 36px) 0%"
+  },
+  {
+    "name": "Dennis Bergkamp",
+    "overall": 103,
+    "index": 16,
+    "side": "blue",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ7O_hE9ZCWWdLY5WMSCPuh7P-Y3YLgWoVjvbw0oOX0Q&s=10",
+    "image": "/player-headshots/rivals/17.jpg"
+  },
+  {
+    "name": "Gianfranco Zola",
+    "overall": 103,
+    "index": 17,
+    "side": "red",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjYG5PNVL6KDCko-OvaF9ONscjUOAcEcXKfkrHg8sHSA&s=10",
+    "image": "/player-headshots/rivals/18.jpg"
+  },
+  {
+    "name": "Victor Osimhen",
+    "overall": 102,
+    "index": 18,
+    "side": "blue",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkUoAvkfeLmpJl2anjhItzE9Dvxn3B2nzx3X6vW90H4w&s=10",
+    "image": "/player-headshots/rivals/19.jpg"
+  },
+  {
+    "name": "Romelu Lukaku",
+    "overall": 102,
+    "index": 19,
+    "side": "red",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXTU6Ghljlt3ItJbarN5O6pegtdgDW9XaZTgtbkqOPPg&s=10",
+    "image": "/player-headshots/rivals/20.jpg"
+  },
+  {
+    "name": "Fermín López",
+    "overall": 102,
+    "index": 20,
+    "side": "blue",
+    "originalUserImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ2AXfbIB2xVChr-XOhEuSpKoSi3ctRr1RXDcLp1T2cA&s=10",
+    "image": "/player-headshots/rivals/user-21-c2a6c0f7.jpg",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd5yvj2I-vj9-51qYLz_ExbiA_4lPu_pax01N26bi0aQ&s=10",
+    "imageAuthor": "User-supplied event portrait",
+    "imageLicense": "Rights retained by the original rights holder",
+    "portraitStyle": "photo"
+  },
+  {
+    "name": "Arda Güler",
+    "overall": 102,
+    "index": 21,
+    "side": "red",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmRPyTrRVArPqlqxBVWLMNaqfmos39l0GaE5PTYeuDpQ&s=10",
+    "image": "/player-headshots/rivals/22.jpg"
+  },
+  {
+    "name": "Matheus Cunha",
+    "overall": 102,
+    "index": 22,
+    "side": "blue",
+    "originalUserImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8FC4_hDD8nB7GHCA_XWuP46RtrvWX-AboXlcAZSz7rg&s=10",
+    "image": "/player-headshots/rivals/user-23-fb3486e9.jpg",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8FC4_hDD8nB7GHCA_XWuP46RtrvWX-AboXlcAZSz7rg&s=10",
+    "imageAuthor": "User-supplied event portrait",
+    "imageLicense": "Rights retained by the original rights holder",
+    "portraitStyle": "photo"
+  },
+  {
+    "name": "João Pedro",
+    "overall": 102,
+    "index": 23,
+    "side": "red",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSR4WxQJlGBbN-etb2cYBi9dhReDoirYU9r-p1J4oDbvw&s=10",
+    "image": "/player-headshots/rivals/24.jpg"
+  },
+  {
+    "name": "Eberechi Eze",
+    "overall": 101,
+    "index": 24,
+    "side": "blue"
+  },
+  {
+    "name": "Morgan Rogers",
+    "overall": 101,
+    "index": 25,
+    "side": "red"
+  },
+  {
+    "name": "Wilfried Singo",
+    "overall": 101,
+    "index": 26,
+    "side": "blue"
+  },
+  {
+    "name": "Milan Škriniar",
+    "overall": 101,
+    "index": 27,
+    "side": "red"
+  },
+  {
+    "name": "Charles De Ketelaere",
+    "overall": 101,
+    "index": 28,
+    "side": "blue"
+  },
+  {
+    "name": "Nick Woltemade",
+    "overall": 101,
+    "index": 29,
+    "side": "red"
+  },
+  {
+    "name": "Cody Gakpo",
+    "overall": 100,
+    "index": 30,
+    "side": "blue",
+    "rival": "Jérémy Doku",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Jérémy Doku",
+    "overall": 100,
+    "index": 31,
+    "side": "red",
+    "rival": "Cody Gakpo",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Dejan Kulusevski",
+    "overall": 100,
+    "index": 32,
+    "side": "blue",
+    "rival": "Noni Madueke",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Noni Madueke",
+    "overall": 100,
+    "index": 33,
+    "side": "red",
+    "rival": "Dejan Kulusevski",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Benjamin Šeško",
+    "overall": 99,
+    "index": 34,
+    "side": "blue",
+    "rival": "Hugo Ekitiké",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Hugo Ekitiké",
+    "overall": 99,
+    "index": 35,
+    "side": "red",
+    "rival": "Benjamin Šeško",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Amad Diallo",
+    "overall": 99,
+    "index": 36,
+    "side": "blue",
+    "rival": "Savinho",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Savinho",
+    "overall": 99,
+    "index": 37,
+    "side": "red",
+    "rival": "Amad Diallo",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Manuel Ugarte",
+    "overall": 98,
+    "index": 38,
+    "side": "blue",
+    "rival": "João Palhinha",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "João Palhinha",
+    "overall": 98,
+    "index": 39,
+    "side": "red",
+    "rival": "Manuel Ugarte",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Rodrigo Bentancur",
+    "overall": 98,
+    "index": 40,
+    "side": "blue",
+    "rival": "Martin Zubimendi",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Martin Zubimendi",
+    "overall": 98,
+    "index": 41,
+    "side": "red",
+    "rival": "Rodrigo Bentancur",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Piero Hincapié",
+    "overall": 97,
+    "index": 42,
+    "side": "blue",
+    "rival": "Levi Colwill",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Levi Colwill",
+    "overall": 97,
+    "index": 43,
+    "side": "red",
+    "rival": "Piero Hincapié",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Leny Yoro",
+    "overall": 97,
+    "index": 44,
+    "side": "blue",
+    "rival": "Manuel Akanji",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Manuel Akanji",
+    "overall": 97,
+    "index": 45,
+    "side": "red",
+    "rival": "Leny Yoro",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Malo Gusto",
+    "overall": 96,
+    "index": 46,
+    "side": "blue",
+    "rival": "Destiny Udogie",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Destiny Udogie",
+    "overall": 96,
+    "index": 47,
+    "side": "red",
+    "rival": "Malo Gusto",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Diogo Dalot",
+    "overall": 96,
+    "index": 48,
+    "side": "blue",
+    "rival": "Rico Lewis",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Rico Lewis",
+    "overall": 96,
+    "index": 49,
+    "side": "red",
+    "rival": "Diogo Dalot",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Kobbie Mainoo",
+    "overall": 95,
+    "index": 50,
+    "side": "blue",
+    "rival": "Nico González",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Nico González",
+    "overall": 95,
+    "index": 51,
+    "side": "red",
+    "rival": "Kobbie Mainoo",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Curtis Jones",
+    "overall": 95,
+    "index": 52,
+    "side": "blue",
+    "rival": "Oscar Bobb",
+    "addedTier": true,
+    "regular": true
+  },
+  {
+    "name": "Oscar Bobb",
+    "overall": 95,
+    "index": 53,
+    "side": "red",
+    "rival": "Curtis Jones",
+    "addedTier": true,
+    "regular": true
+  }
+]

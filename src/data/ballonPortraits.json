@@ -1,0 +1,47 @@
+{
+  "Lionel Messi": {
+    "image": "/player-headshots/ballon-846693e5cfeb4fe2c5.webp",
+    "portraitStyle": "headshot",
+    "portraitZoom": 1,
+    "imageSource": "https://www.uefa.com/ballondor/news/0287-195e642735da-0594342b9554-1000--history-of-the-ballon-d-or-all-the-winners/",
+    "imageAuthor": "AFP via Getty Images",
+    "imageLicense": "Rights retained by the original rights holder",
+    "portraitEra": "Ballon d'Or ceremony"
+  },
+  "Ronaldinho": {
+    "image": "/ballon-portraits/e629fef5502a32603d.webp",
+    "portraitStyle": "headshot",
+    "portraitZoom": 1,
+    "imageSource": "https://www.uefa.com/ballondor/news/0292-1c27056169a7-bc88d1fdba43-1000--ballon-d-or-laureates-who-has-won-football-s-most-prestig/",
+    "imageAuthor": "AFP via Getty Images",
+    "imageLicense": "Rights retained by the original rights holder",
+    "portraitEra": "Ballon d'Or ceremony"
+  },
+  "Cristiano Ronaldo": {
+    "image": "/player-headshots/ballon-3609e0ab763cc0c00b.webp",
+    "portraitStyle": "headshot",
+    "portraitZoom": 1,
+    "imageSource": "https://www.uefa.com/ballondor/news/0292-1c27056169a7-bc88d1fdba43-1000--ballon-d-or-laureates-who-has-won-football-s-most-prestig/",
+    "imageAuthor": "AFP via Getty Images",
+    "imageLicense": "Rights retained by the original rights holder",
+    "portraitEra": "Ballon d'Or ceremony"
+  },
+  "Harry Kane": {
+    "image": "/player-headshots/ballon-cf135c9323d7860349.webp",
+    "portraitStyle": "headshot",
+    "portraitZoom": 1,
+    "imageSource": "https://www.uefa.com/ballondor/news/0292-1c27056169a7-bc88d1fdba43-1000--ballon-d-or-laureates-who-has-won-football-s-most-prestig/",
+    "imageAuthor": "UEFA via Getty Images",
+    "imageLicense": "Rights retained by the original rights holder",
+    "portraitEra": "Ballon d'Or ceremony"
+  },
+  "Ousmane Dembélé": {
+    "image": "/player-headshots/ballon-ef097fbba85fdf4268.webp",
+    "portraitStyle": "headshot",
+    "portraitZoom": 1,
+    "imageSource": "https://www.uefa.com/uefachampionsleague/news/029d-1ec96c30aa3f-f6868c869cbd-1000--ousmane-dembele-wins-2025-men-s-ballon-d-or/",
+    "imageAuthor": "AFP via Getty Images",
+    "imageLicense": "Rights retained by the original rights holder",
+    "portraitEra": "Ballon d'Or ceremony"
+  }
+}
