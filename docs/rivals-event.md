@@ -1,6 +1,6 @@
 # Rivals event
 
-The event has 54 existing footballer identities with separate Rivals card IDs. Base ratings remain capped at 105, with five training levels (maximum 110).
+The event has 56 existing footballer identities with separate Rivals card IDs. Base ratings remain capped at 105, with five training levels (maximum 110).
 
 ## User roster and colours
 
@@ -9,7 +9,7 @@ Kompany is explicitly blue. The first eight existing colours stay unchanged. Sta
 | OVR | Ordered roster |
 | --- | --- |
 | 105 | Pele, Maradona, Van der Sar, Cech, Maldini, Zanetti |
-| 104 | Gerrard, Lampard, Kompany, Vidic, Pique, Varane |
+| 104 | Gerrard, Lampard, Kompany, Vidic, Pique, Varane, Eden Hazard (blue, LW), Gareth Bale (red, RW) |
 | 103 | Luis Diaz, Kvaratskhelia, Bellingham, Pedri, Bergkamp, Zola |
 | 102 | Osimhen, Lukaku, Fermin Lopez, Arda Guler, Matheus Cunha, Joao Pedro |
 | 101 | Eze, Morgan Rogers, Singo, Skriniar, De Ketelaere, Woltemade |
@@ -36,7 +36,7 @@ Each 95-100 OVR tier has exactly four players: two red and two blue. Rival pairs
 
 The 24 lower-tier active Rivals cards are current, non-legend catalogue players and none is on the Ballon event roster. Their card OVRs and five-level training limits stay as before, while attributes retain source-player weaknesses and are capped at base OVR minus seven before training. No legend-specific statistical floors are applied to these 24 cards.
 
-Former lower-tier Rivals editions remain resolvable as `rivalsLegacy` with their original IDs, training, ownership and copies, preventing old save imports from failing. They are absent from active Rivals market listings and every pack pool. The active event remains 54 cards, 27 red / 27 blue, with four cards per OVR from 95 through 100.
+Former lower-tier Rivals editions remain resolvable as `rivalsLegacy` with their original IDs, training, ownership and copies, preventing old save imports from failing. They are absent from active Rivals market listings and every pack pool. The active event remains 56 cards, 28 red / 28 blue, with four cards per OVR from 95 through 100.
 
 Eight event portraits use the user's latest image URLs: Maldini, Kompany, Fermin Lopez, Cunha, Van der Sar, Lampard, Varane and Zanetti. Images are downloaded unchanged under unique user-* filenames; current source URLs and credits accompany each card. No watermarks are erased or retouched.
 

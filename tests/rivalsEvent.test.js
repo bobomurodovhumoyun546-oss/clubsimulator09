@@ -13,21 +13,24 @@ import {packPools,simulatorPacks,packOdds} from '../src/features/simulatorPacks.
 import {inventoryPlayers} from '../src/features/cardInventory.js';
 import {restoreClub,exportClub} from '../src/game/saveGame.js';
 const catalogue=readFile(new URL('../public/game-data/players.json',import.meta.url),'utf8').then(s=>simulatorCards(normalizePlayers(JSON.parse(s))));
-test('Rivals has 54 unique cards, preserves Kompany blue and continues red/blue after him',async()=>{
- const players=await catalogue,cards=marketPlayers(players,{edition:'rivals'});assert.equal(cards.length,54);
+test('Rivals has 56 unique cards, preserves Kompany blue and continues red/blue after him',async()=>{
+ const players=await catalogue,cards=marketPlayers(players,{edition:'rivals'});assert.equal(cards.length,56);
  for(const [i,event]of rivalsEvent.entries()){
-  const p=cards[i];assert.equal(p.fullName.normalize('NFD').replace(/[\u0300-\u036f]/g,''),event.name.normalize('NFD').replace(/[\u0300-\u036f]/g,''));assert.equal(playerOVR(p),event.overall);assert.equal(p.rivalsSide,event.side);assert.equal(p.basePlayerId,p.id.replace('::rivals',''));assert.ok(p.image);
+  const p=cards.find(card=>normalizeAnswer(card.fullName)===normalizeAnswer(event.name));assert.ok(p,event.name);assert.equal(playerOVR(p),event.overall);assert.equal(p.rivalsSide,event.side);assert.equal(p.basePlayerId,p.id.replace('::rivals',''));assert.ok(p.image);
   if(event.image){assert.ok(p.imageSource.startsWith('https://'));assert.ok((await readFile(new URL('../public'+p.image,import.meta.url))).length>1000);}
   if(i>=9)assert.equal(p.rivalsSide,(i-9)%2?'blue':'red');
  }
  assert.equal(cards.find(p=>p.fullName==='Vincent Kompany').rivalsSide,'blue');
+ for(const [name,position,side]of [['Eden Hazard','LW','blue'],['Gareth Bale','RW','red']]){
+  const player=cards.find(p=>p.fullName===name);assert.equal(playerOVR(player),104);assert.equal(player.positions[0],position);assert.equal(player.primaryPosition,position);assert.equal(player.rivalsSide,side);
+ }
  assert.ok(cards.find(p=>p.fullName==='Nemanja Vidi\u0107').rivalsLegend);assert.equal(cards.find(p=>p.fullName==='Jude Bellingham').rivalsLegend,false);
  for(const name of ['Steven Gerrard','Frank Lampard','Khvicha Kvaratskhelia','Jude Bellingham','Pedri'])assert.ok(!players.some(p=>p.cardEdition==='ballondor'&&p.fullName===name));
 });
 test('95 through 100 each have four additional rivals, split two red and two blue',async()=>{
  const players=await catalogue,low=players.filter(p=>p.cardEdition==='rivals'&&p.cardOverall<=100);assert.equal(low.length,24);
  for(let ovr=95;ovr<=100;ovr++){const tier=low.filter(p=>p.cardOverall===ovr);assert.equal(tier.length,4);assert.equal(tier.filter(p=>p.rivalsSide==='red').length,2);assert.equal(tier.filter(p=>p.rivalsSide==='blue').length,2);for(const p of tier){const rival=tier.find(q=>q.fullName===p.rivalsOpponent);assert.ok(rival);assert.notEqual(rival.rivalsSide,p.rivalsSide);assert.equal(rival.rivalsOpponent,p.fullName);}}
- for(const ovr of [101,102,103,104,105])assert.equal(players.filter(p=>p.cardEdition==='rivals'&&p.cardOverall===ovr).length,6);
+ for(const ovr of [101,102,103,104,105])assert.equal(players.filter(p=>p.cardEdition==='rivals'&&p.cardOverall===ovr).length,ovr===104?8:6);
 });
 
 test('a 105 Rivals card can be bought and trained to 110, stops at +5 and survives export/import',async()=>{
@@ -59,7 +62,7 @@ test('migration preserves both cards if an imported save already owns the replac
 
 test('the expanded 95+ pack reaches every Rivals tier and keeps copies out of the draw pool',async()=>{
  const players=await catalogue,pack=simulatorPacks.find(p=>p.id==='rivals95'),tiers=packPools(pack,players);assert.equal(pack.minimum,95);assert.equal(pack.price,35000);assert.deepEqual(packOdds(pack).map(t=>t.weight),[60,25,12,3]);
- const pool=tiers.flatMap(t=>t.players);assert.equal(new Set(pool.map(p=>p.id)).size,54);assert.ok(pool.every(p=>p.cardEdition==='rivals'&&!p.copyOf));
+ const pool=tiers.flatMap(t=>t.players);assert.equal(new Set(pool.map(p=>p.id)).size,56);assert.ok(pool.every(p=>p.cardEdition==='rivals'&&!p.copyOf));
 });
 test('Kvaratskhelia, Bellingham and Pedri Ballon cards migrate to 103 Rivals with training and copies',async()=>{
  const players=await catalogue,names=['Khvicha Kvaratskhelia','Jude Bellingham','Pedri'];

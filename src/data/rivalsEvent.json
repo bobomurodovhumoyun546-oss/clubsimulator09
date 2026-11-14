@@ -481,5 +481,21 @@
     "rival": "Curtis Jones",
     "addedTier": true,
     "regular": true
+  },
+  {
+    "name": "Eden Hazard",
+    "overall": 104,
+    "index": 54,
+    "side": "blue",
+    "position": "LW",
+    "rival": "Gareth Bale"
+  },
+  {
+    "name": "Gareth Bale",
+    "overall": 104,
+    "index": 55,
+    "side": "red",
+    "position": "RW",
+    "rival": "Eden Hazard"
   }
 ]
