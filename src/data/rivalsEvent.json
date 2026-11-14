@@ -488,6 +488,9 @@
     "index": 54,
     "side": "blue",
     "position": "LW",
+    "image": "/player-headshots/rivals/hazard-104.jpg",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeY3lN_UzLHEgIqx2sabvSerp_loJXWvMVI6PZVJMMqRFk2oZkm1P4tqk&s=10",
+    "portraitStyle": "photo",
     "rival": "Gareth Bale"
   },
   {
@@ -496,6 +499,9 @@
     "index": 55,
     "side": "red",
     "position": "RW",
+    "image": "/player-headshots/rivals/bale-104.jpg",
+    "imageSource": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOglNn7RNkmLnW8DpRggkhWEQ4UCnDYnyCGVNRLRPpux-Mv_s2f8iHlkVM&s=10",
+    "portraitStyle": "photo",
     "rival": "Eden Hazard"
   }
 ]
