@@ -1,4 +1,9 @@
+import {saveClubSnapshot} from '../utils/clubSaveStore.js';
+import {starterStatus,claimStarterTeam} from '../utils/starterTeam.js';
+import {leagueGroup} from '../../src/features/leagueGroups.js';
+import {listGifts,claimGift} from '../utils/gifts.js';
 import {saveResult} from '../utils/resultStore.js';
+import {redeemPromoCode} from '../utils/promoCodes.js';
 import {createFriendsRouter} from './friends.js';
 import { Router } from 'express';
 import { randomBytes, randomUUID, createHash } from 'node:crypto';
@@ -12,7 +17,7 @@ const tokenOf=req=>req.headers.cookie?.split(';').map(p=>p.trim()).find(p=>p.sta
 const dayOf=()=>new Date().toISOString().slice(0,10);
 const avatars=['⚽','🏆','🦁','🦅','🐺','⭐','🧤','🔥'];
 export function createAccountRouter(db=openAccountStore(),options={}) {
-  const router=Router(), attempts=new Map();
+  const router=Router(), attempts=new Map(),promoAttempts=new Map();
   const publicUser=user=>user?{id:user.id,name:user.name,username:user.username,email:user.email,avatar:user.avatar,xp:user.xp,level:1+Math.floor(user.xp/500)}:null;
   const getUser=async req=>{
     const token=tokenOf(req);if(!token||!/^[-\w]{43}$/.test(token))return null;
@@ -64,8 +69,24 @@ export function createAccountRouter(db=openAccountStore(),options={}) {
   router.post('/logout',async (req,res)=>{const token=tokenOf(req);if(token)(await db.prepare('DELETE FROM sessions WHERE token_hash=?').run(digest(token)));res.clearCookie(cookieName,cookieOptions);res.json({user:null});});
   router.get('/leaderboard',async (req,res)=>res.json({entries:(await db.prepare('SELECT u.id,u.name,u.avatar,u.xp,COALESCE(SUM(r.score),0) AS score FROM users u LEFT JOIN results r ON r.user_id=u.id GROUP BY u.id ORDER BY score DESC,u.xp DESC,u.name LIMIT 50').all()).map(u=>({...u,level:1+Math.floor(u.xp/500)}))}));
   router.get('/quizzes',async (req,res)=>res.json({quizzes:(await db.prepare('SELECT q.id,q.title,q.questions,q.created,u.name AS author FROM quizzes q JOIN users u ON q.user_id=u.id ORDER BY q.created DESC LIMIT 100').all()).map(q=>({...q,questions:JSON.parse(q.questions)}))}));
-  router.get('/clubs',async (req,res)=>res.json({clubs:(await db.prepare('SELECT u.id,u.name AS owner,COALESCE(c.name,u.name || \' FC\') AS name,COALESCE(c.season,1) AS season,COALESCE(c.played,0) AS played,COALESCE(c.wins,0) AS wins,COALESCE(c.draws,0) AS draws,COALESCE(c.losses,0) AS losses,COALESCE(c.goals_for,0) AS goalsFor,COALESCE(c.goals_against,0) AS goalsAgainst FROM users u LEFT JOIN simulator_clubs c ON c.user_id=u.id').all())}));
+  router.get('/clubs',async (req,res)=>res.json({group:leagueGroup(req.account?.id),clubs:(await db.prepare('SELECT u.id,u.name AS owner,COALESCE(c.name,u.name || \' FC\') AS name,COALESCE(c.season,1) AS season,COALESCE(c.played,0) AS played,COALESCE(c.wins,0) AS wins,COALESCE(c.draws,0) AS draws,COALESCE(c.losses,0) AS losses,COALESCE(c.goals_for,0) AS goalsFor,COALESCE(c.goals_against,0) AS goalsAgainst FROM users u LEFT JOIN simulator_clubs c ON c.user_id=u.id').all()).filter(c=>req.account&&leagueGroup(c.id)===leagueGroup(req.account.id))}));
   router.use((req,res,next)=>req.account?next():res.status(401).json({code:'credentials'}));
+  router.get('/starter-team',async(req,res)=>res.json(await starterStatus(db,req.account.id)));
+  router.post('/starter-team',async(req,res)=>{const result=await claimStarterTeam(db,req.account.id,req.body?.teamId);if(result.error)return res.status(result.status).json({code:result.error});res.json(result);});
+  router.get('/gifts',async(req,res)=>res.json({gifts:await listGifts(db,req.account.id)}));
+  router.post('/gifts/claim',async(req,res)=>{
+    const result=await claimGift(db,req.account.id,req.body?.kind);
+    if(result.error)return res.status(result.status).json({code:result.error});
+    res.json(result);
+  });
+  router.post('/promo/redeem',async(req,res)=>{
+    const now=Date.now();for(const [id,entry]of promoAttempts)if(entry.until<now)promoAttempts.delete(id);
+    const entry=promoAttempts.get(req.account.id)||{count:0,until:now+60000};promoAttempts.set(req.account.id,entry);
+    if(++entry.count>10)return res.status(429).json({code:'tooMany'});
+    const result=await redeemPromoCode(db,req.account.id,req.body?.code);
+    if(result.error)return res.status(result.status).json({code:result.error});
+    res.json({redeemed:true,grant:result.grant});
+  });
   if(options.serverless){
     router.onlineMatches={close(){}};
     router.use('/friends',(req,res)=>res.status(503).json({code:'unavailable'}));
@@ -76,7 +97,9 @@ export function createAccountRouter(db=openAccountStore(),options={}) {
   router.post('/club-save',async (req,res)=>{
     const club=req.body?.club;
     if(!club||club.version!==1||!Array.isArray(club.owned)||club.owned.length>10000||club.owned.some(id=>typeof id!=='string')||!Array.isArray(club.lineup)||club.lineup.length!==11||!Number.isSafeInteger(club.coins)||club.coins<0||typeof club.name!=='string'||club.name.length>24||typeof club.formation!=='string')return res.status(400).json({code:'invalid'});
-    const updated=new Date().toISOString();(await db.prepare('INSERT INTO club_saves VALUES(?,?,?) ON CONFLICT(user_id) DO UPDATE SET state=excluded.state,updated=excluded.updated').run(req.account.id,JSON.stringify(club),updated));res.json({saved:true,updated});
+    const starterChoice=await db.prepare('SELECT team_id FROM starter_choices WHERE user_id=?').get(req.account.id);
+    if((starterChoice&&club.starterTeamId!==starterChoice.team_id)||(!starterChoice&&club.starterTeamId))return res.status(409).json({code:'starterUnavailable'});
+    const result=await saveClubSnapshot(db,req.account.id,club,req.body.expectedUpdated);if(result.error)return res.status(result.status).json({code:result.error});res.json(result);
   });
   router.get('/club-grants',async (req,res)=>res.json({grants:(await db.prepare('SELECT id,amount FROM club_grants WHERE user_id=?').all(req.account.id))}));
   router.post('/club',async (req,res)=>{

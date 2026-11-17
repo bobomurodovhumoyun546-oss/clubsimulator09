@@ -10,16 +10,16 @@ export function canSubstitute(match,outId,inPlayer){
  const slot=match.lineup.indexOf(outId);
  return slot>=0&&inPlayer&&match.owned.includes(inPlayer.id)&&!match.lineup.includes(inPlayer.id)&&!match.off.includes(inPlayer.id)&&!match.injured.includes(inPlayer.id)&&match.substitutions.length<5&&(fitsPosition(inPlayer,match.roles[slot])||fitsPosition(inPlayer,positionGroup(match.roles[slot])));
 }
-function resolveAttempt(state,choice){
+function resolveAttempt(state,choice,showReview=false){
  const p=state.pending;if(!p)return state;
  const success=Number.isInteger(choice)&&p.cells.includes(choice);
  const goal=p.home?success:!success;
  const entry={...p,cells:undefined,goal,choice,playerId:p.attackerId,name:p.attackerName,clubId:p.home?'you':state.opponent.id,clubName:p.home?state.clubName:state.opponent.name,assistId:goal?p.assistId:null,assistName:goal?p.assistName:null};
- return {...state,pending:null,log:[...state.log,entry]};
+ return {...state,pending:null,review:showReview?{...p,choice,goal,remaining:3}:null,log:[...state.log,entry]};
 }
 export function advanceLiveMatch(state,action,players,random=Math.random){
  if(state.finished)return state;
- if(action.type==='choose')return action.cell>=0&&action.cell<20?resolveAttempt(state,action.cell):state;
+ if(action.type==='choose')return !state.review&&Number.isInteger(action.cell)&&action.cell>=0&&action.cell<20?resolveAttempt(state,action.cell,true):state;
  if(action.type==='substitute'){
   const player=players.find(p=>p.id===action.inId);if(!canSubstitute(state,action.outId,player))return state;
   const identity=player.basePlayerId||player.id;
@@ -27,6 +27,7 @@ export function advanceLiveMatch(state,action,players,random=Math.random){
   return {...state,lineup:state.lineup.map(id=>id===action.outId?action.inId:id),off:[...state.off,action.outId],substitutions:[...state.substitutions,{minute:state.minute,outId:action.outId,inId:action.inId}]};
  }
  if(action.type!=='tick')return state;
+ if(state.review)return {...state,review:state.review.remaining>1?{...state.review,remaining:state.review.remaining-1}:null};
  let next={...state,minute:Math.min(90,state.minute+1)};
  if(next.pending&&next.minute>=next.pending.minute+5)next=resolveAttempt(next,null);
  if(next.minute===next.injuryMinute){

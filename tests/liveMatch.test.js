@@ -28,7 +28,7 @@ test('90 clock ticks produce exactly the visible goals and persist real scorers,
  match=advanceLiveMatch(match,{type:'substitute',outId:out,inId:incoming.id},players,rng);assert.ok(match.lineup.includes(incoming.id));assert.equal(match.substitutions.length,1);
  for(let minute=1;minute<=90;minute++){
   match=advanceLiveMatch(match,{type:'tick'},players,rng);assert.equal(match.minute,minute);
-  if(match.pending){assert.equal(match.pending.cells.length,14);assert.ok(match.pending.attackerName&&match.pending.keeperName);match=advanceLiveMatch(match,{type:'choose',cell:match.pending.cells[0]},players,rng);}
+  if(match.pending){assert.equal(match.pending.cells.length,14);assert.ok(match.pending.attackerName&&match.pending.keeperName);match=advanceLiveMatch(match,{type:'choose',cell:match.pending.cells[0]},players,rng);for(let review=0;review<3;review++)match=advanceLiveMatch(match,{type:'tick'},players,rng);}
  }
  assert.equal(match.finished,true);assert.equal(match.log.length,match.schedule.length);
  const score=liveScore(match),result=clubAction(club,{type:'match',liveMatch:match},players,rng);assert.equal(result.error,undefined);

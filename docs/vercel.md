@@ -43,12 +43,16 @@ Birinchi akkaunt so‘rovida jadvallar avtomatik yaratiladi. Alohida SQL kiritis
 - Saytda ro‘yxatdan o‘ting, klubni saqlang, chiqing va qayta kiring. Klub tiklanishini tekshiring.
 - `/login` sahifasini bevosita ochish va yangilash ham ishlaydi.
 
-Mahalliy `backend/runtime/accounts.sqlite` dagi eski akkauntlar yangi Turso bazasiga avtomatik ko‘chmaydi. Yangi bazada ro‘yxatdan o‘ting. Klubni avvalgi qurilmadan JSON eksport/import orqali ko‘chirishingiz mumkin.
+Mahalliy `backend/runtime/accounts.sqlite` dagi eski akkauntlar alohida sinov bazasida qoladi. Mavjud Vercel akkauntingiz bo‘lsa qayta ro‘yxatdan o‘tmang: localhostda ham Verceldagi email va parol bilan kiring. Vercel saqlanmasi asosiy manba bo‘ladi; eski lokal tarkib uni avtomatik bosib yozmaydi.
 
 ## Qo‘llab-quvvatlanadigan imkoniyatlar
 
 Vercelda ro‘yxatdan o‘tish, kirish/chiqish, profil, shaxsiy klub saqlanmasi, statistika va reyting ishlaydi. Do‘stlar va jonli do‘stlar matchi bu rejimda `503 unavailable` qaytaradi: hozirgi match serveri xotira va uzluksiz timerga tayanadi. Ular mahalliy `npm run dev` va doimiy Node serverida avvalgidek ishlaydi.
 
-Oddiy `npm run dev` mahalliy SQLite bazasidan foydalanadi. Turso sozlamalari Vercel Function uchun ishlatiladi.
+`npm run dev` va `npm start` loyiha ildizidagi `.env` faylini o‘qib, Vercel bilan bir xil Turso bazasidan foydalanadi. Ikkala muhitda `TURSO_DATABASE_URL` va `TURSO_AUTH_TOKEN` bir xil bazaga tegishli bo‘lsin. Kalitlar yo‘q yoki ulanish xato bo‘lsa boshqa akkaunt bazasiga avtomatik o‘tilmaydi. Faqat ataylab ajratilgan sinov uchun `CLUB_ACCOUNT_STORAGE=sqlite` belgilang.
+
+Mahalliy Node serveridagi do‘stlar va matchlar ham async Turso bilan ishlaydi; Vercel Function rejimida xotiradagi jonli match xonasi cheklovi saqlanadi. Auth cookie domenlar bo‘yicha alohida: Vercel va localhostda bir martadan kirish kerak, ammo akkaunt ID va tarkib bazasi bitta.
+
+Yangi klient saqlashda `expectedUpdated` versiyasini yuboradi. Eskirgan versiya `409 saveConflict` qaytaradi; klient markaziy tarkibni qayta o‘qiydi. Fokus qaytganda va bo‘sh holatda har 15 soniyada markaziy saqlanma tekshiriladi. Dastlabki yuklash/validatsiya xatosidan keyin lokal nusxa markaziy saqlanmani bosib yozmaydi. Eski klientlar uchun versiyasiz saqlash mosligi saqlangan.
 
 Manbalar: [Turso quickstart](https://docs.turso.tech/quickstart), [Turso JavaScript SDK](https://tursodatabase.github.io/libsql-client-ts/), [Vercel Node.js versions](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions).

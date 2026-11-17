@@ -20,8 +20,9 @@ function calendar(opponents){
  }
  return {fixtures,otherFixtures};
 }
-export function createSeason(number=1,members=[]){
- const opponents=[...leagueTeams.map((name,i)=>({id:`ai-${i}`,name,ai:true})),...members];
+export function createSeason(number=1,members=[],group=0){
+ const names=group?Array.from({length:9},(_,i)=>['Atlas','Falcon','Storm','Titan','Aurora','Crown','Orion','Nova','Summit','Coastal','Raven','Lions','Valley','Galaxy','Unity','Eagle','Ocean','Comet','Phoenix','Royal','Metro','Capital','Viking','Forest','Harbor','Glory','Victory','Thunder','Cosmos','Rangers','United','Athletic'][(group*7+i*3)%32]+' '+['FC','City','United'][(group+i)%3]):leagueTeams;
+ const opponents=[...names.map((name,i)=>({id:`ai-${i}`,name,ai:true})),...members];
  const unique=[...new Map(opponents.filter(p=>p?.id&&p.name&&p.id!=='you').map(p=>[p.id,p])).values()];
  return {number,opponents:unique,played:0,complete:false,playerStats:{},
   ...calendar(unique),
@@ -43,7 +44,7 @@ export function addSeasonMembers(season,members){
  }
  return next;
 }
-export function seasonForMatch(club){const season=currentSeason(club);return season.complete?createSeason(season.number+1,club.leagueMembers||[]):season;}
+export function seasonForMatch(club){const season=currentSeason(club);return season.complete?createSeason(season.number+1,club.leagueMembers||[],club.leagueGroup||0):season;}
 export function seasonRows(season,name){
  const names=new Map([['you',{name}],...season.opponents.map(p=>[p.id,p])]);
  return Object.entries(season.table).map(([id,stats])=>({id,...names.get(id),...stats,points:stats.wins*3+stats.draws,goalDifference:stats.goalsFor-stats.goalsAgainst})).sort((a,b)=>b.points-a.points||b.goalDifference-a.goalDifference||b.goalsFor-a.goalsFor||a.name.localeCompare(b.name));
@@ -58,4 +59,10 @@ export function recordSeasonMatch(season,ownGoals,opponentGoals,simulateOther,ev
  for(const match of next.otherFixtures.splice(0,count)){const score=simulateOther(match);record(match.homeId,score.home,score.away);record(match.awayId,score.away,score.home);next.playerStats=addScoringEvents(next.playerStats,score.events||[]);}
  next.played++;next.complete=next.played===next.fixtures.length;
  return next;
+}
+
+export function assignLeagueGroup(club,group){
+ if(!Number.isInteger(group)||group<1||group>64||club.leagueGroup===group)return club;
+ const old=currentSeason(club),archives=old.played?[...(club.archivedSeasons||[]),old].slice(-5):club.archivedSeasons||[];
+ return {...club,leagueGroup:group,leagueMembers:[],archivedSeasons:archives,season:createSeason(old.number+Number(old.played>0),[],group)};
 }

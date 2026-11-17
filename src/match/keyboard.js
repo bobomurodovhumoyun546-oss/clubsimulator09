@@ -16,5 +16,6 @@ export function createMatchKeyboard(parent,surface,onClear=()=>{}){
 
 export function movementInput(held,controls={}){
  const down=(code,touch)=>held.has(code)||Boolean(controls[touch]);
- return {x:Number(down('KeyD','right'))-Number(down('KeyA','left')),y:Number(down('KeyS','down'))-Number(down('KeyW','up')),sprint:held.has('ShiftLeft')||held.has('ShiftRight')||Boolean(controls.sprint),gk:down('KeyG','gk'),aim:controls.shotAim};
+ const axis=(a,b,key)=>{const keyboard=Number(a)-Number(b),stick=controls.joystick?.[key];return keyboard||(Number.isFinite(stick)?Math.max(-1,Math.min(1,stick)):0);};
+ return {x:axis(down('KeyD','right'),down('KeyA','left'),'x'),y:axis(down('KeyS','down'),down('KeyW','up'),'y'),sprint:held.has('ShiftLeft')||held.has('ShiftRight')||Boolean(controls.sprint),gk:down('KeyG','gk'),aim:controls.shotAim};
 }

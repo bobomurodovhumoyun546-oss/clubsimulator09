@@ -1,3 +1,6 @@
+import {teamById} from './starterCards.js';
+const badgeImages=new Map(),badgeLoading=new Map();
+export function loadKitBadge(club){const team=teamById.get(club.badgeTeamId);if(!team?.badge||typeof Image==='undefined')return Promise.resolve(null);if(badgeLoading.has(team.id))return badgeLoading.get(team.id);const pending=new Promise(resolve=>{const image=new Image();image.crossOrigin='anonymous';image.onload=()=>{badgeImages.set(team.id,image);resolve(image);};image.onerror=()=>resolve(null);image.src=team.badge;});badgeLoading.set(team.id,pending);return pending;}
 // One outline definition for the editor, kit SVG and 3D shirt decal.
 const paths={
  circle:'M152 85a72 72 0 1 0-144 0a72 72 0 1 0 144 0Z',
@@ -8,6 +11,7 @@ const paths={
 };
 export const badgePath=shape=>paths[shape]||paths.shield;
 export function drawKitBadge(ctx,club,x=84,y=0,size=24,Path=globalThis.Path2D){
+ const image=badgeImages.get(club.badgeTeamId);if(image){ctx.drawImage(image,x,y,size,size);return;}
  const initials=club.badgeInitials||club.symbol||'FC',accent=club.badgeAccent||club.secondary||'#ffffff',text=club.badgeTextColor||'#fff6df';
  // Non-browser render tests and older canvases still retain the club initials.
  if(!Path){ctx.fillStyle=text;ctx.fillText(initials,x+size/2,y+size*.65);return;}

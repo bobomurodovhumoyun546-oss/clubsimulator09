@@ -1,5 +1,5 @@
 ﻿import * as THREE from 'three';
-import {drawKitBadge} from '../../features/clubBadge.js';
+import {drawKitBadge,loadKitBadge} from '../../features/clubBadge.js';
 import {matchKit,secondaryPanel} from './kit.js';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
 import {actionState,yawForVelocity,smoothAngle,worldPosition} from './world.js';
@@ -71,7 +71,7 @@ export function createFootballer(player,number=1,club={}){
  const map=new THREE.CanvasTexture(canvas);map.colorSpace=THREE.SRGBColorSpace;const decal=new THREE.Mesh(new THREE.PlaneGeometry(.18,.2),new THREE.MeshBasicMaterial({map,transparent:true,side:THREE.DoubleSide,depthWrite:false}));decal.position.set(0,1.32,-.151);decal.rotation.y=Math.PI;body.add(decal);
  if(player.role!=='REF'){
   const front=document.createElement('canvas');front.width=128;front.height=64;const paint=front.getContext('2d');paint.fillStyle=kit.text;paint.textAlign='center';paint.font='bold 12px Arial';drawKitBadge(paint,{...club,primary:kit.primary,secondary:kit.secondary});paint.fillStyle=kit.text;paint.font='bold 14px Arial';paint.fillText(kit.sponsor.slice(0,17).toUpperCase(),64,42);
-  const print=new THREE.CanvasTexture(front);print.colorSpace=THREE.SRGBColorSpace;const patch=new THREE.Mesh(new THREE.PlaneGeometry(.34,.18),new THREE.MeshBasicMaterial({map:print,transparent:true,depthWrite:false}));patch.position.set(0,1.32,.155);body.add(patch);
+  const print=new THREE.CanvasTexture(front);print.colorSpace=THREE.SRGBColorSpace;let printDisposed=false;print.addEventListener('dispose',()=>{printDisposed=true;});if(club.badgeTeamId)void loadKitBadge(club).then(image=>{if(!image||printDisposed)return;paint.clearRect(0,0,128,64);drawKitBadge(paint,{...club,primary:kit.primary,secondary:kit.secondary});paint.fillStyle=kit.text;paint.textAlign='center';paint.font='bold 14px Arial';paint.fillText(kit.sponsor.slice(0,17).toUpperCase(),64,42);print.needsUpdate=true;});const patch=new THREE.Mesh(new THREE.PlaneGeometry(.34,.18),new THREE.MeshBasicMaterial({map:print,transparent:true,depthWrite:false}));patch.position.set(0,1.32,.155);body.add(patch);
  }
  bakeRig(root);root.scale.setScalar(1.35);
  const figure={root,body,head,torso,arms,legs,yaw:player.team?-Math.PI/2:Math.PI/2,pose:'idle'};root.rotation.y=figure.yaw;return figure;

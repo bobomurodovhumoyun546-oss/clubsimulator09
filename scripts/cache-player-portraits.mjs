@@ -1,0 +1,20 @@
+﻿import fs from 'node:fs';import path from 'node:path';import {createHash} from 'node:crypto';
+import {normalizePlayers} from '../src/games/core/players.js';
+import {simulatorCards} from '../src/features/simulatorCards.js';
+const raw=JSON.parse(fs.readFileSync('public/game-data/players.json','utf8'));
+const starters=Object.values(JSON.parse(fs.readFileSync('src/data/starterPlayers.json','utf8')));
+const rows=[...simulatorCards(normalizePlayers(raw)),...starters].map(p=>({id:p.id,name:p.fullName,image:p.image})),byUrl=new Map();for(const p of rows)if(p.image){const entry=byUrl.get(p.image)||{url:p.image,players:[]};entry.players.push({id:p.id,name:p.name});byUrl.set(p.image,entry);}
+fs.mkdirSync('public/game-data/portraits',{recursive:true});fs.mkdirSync('tmp',{recursive:true});const manifest=fs.existsSync('src/data/portraitAssets.json')?JSON.parse(fs.readFileSync('src/data/portraitAssets.json','utf8')):{},failures=[],localMissing=[];let index=0,ok=0,bytesTotal=0;const entries=[...byUrl.values()];
+function imageType(bytes){if(bytes[0]===137&&bytes[1]===80&&bytes[2]===78&&bytes[3]===71)return 'png';if(bytes[0]===255&&bytes[1]===216&&bytes[2]===255)return 'jpg';if(Buffer.from(bytes.subarray(0,4)).toString()==='RIFF'&&Buffer.from(bytes.subarray(8,12)).toString()==='WEBP')return 'webp';if(Buffer.from(bytes.subarray(0,3)).toString()==='GIF')return 'gif';return null;}
+async function attempt(url){const r=await fetch(url,{signal:AbortSignal.timeout(15000)});if(!r.ok){await r.body?.cancel();throw Error('HTTP '+r.status);}if(!r.headers.get('content-type')?.startsWith('image/'))throw Error('Not an image');const bytes=new Uint8Array(await r.arrayBuffer()),ext=imageType(bytes);if(!ext||bytes.length<250||bytes.length>5000000)throw Error('Invalid image payload');return {bytes,ext};}
+await Promise.all(Array.from({length:5},async()=>{while(index<entries.length){const entry=entries[index++],{url}=entry;if(url.startsWith('/')){const file=path.resolve('public','.'+decodeURIComponent(url.split('?')[0]));if(!fs.existsSync(file))localMissing.push(entry);continue;}
+ if(manifest[url]&&fs.existsSync('public'+manifest[url])){ok++;bytesTotal+=fs.statSync('public'+manifest[url]).size;continue;}
+ const candidates=[url.includes('game-assets.fut.gg/cdn-cgi/image/')?url.replace(/\/cdn-cgi\/image\/[^/]+\//,'/'):url];if(candidates[0]!==url)candidates.push(url);
+ if(url.includes('ratings-images-prod.pulse.ea.com/'))for(const version of ['FC26','FC27','FC25']){const alternate=url.replace(/\/FC\d+\//,'/'+version+'/');if(!candidates.includes(alternate))candidates.push(alternate);}
+ const playerId=url.match(/p(\d+)\.png/)?.[1];if(playerId&&url.includes('ea.com'))for(const version of ['26','25','24','23'])candidates.push('https://cdn.futbin.com/content/fifa'+version+'/img/players/'+playerId+'.png');
+ let result,lastError;for(const candidate of candidates){try{result={...await attempt(candidate),downloadedFrom:candidate};break;}catch(e){lastError=e.message;if(lastError.includes('429')){await new Promise(r=>setTimeout(r,5000));break;}}}
+ if(result){const file=createHash('sha256').update(url).digest('hex').slice(0,24)+'.'+result.ext;fs.writeFileSync('public/game-data/portraits/'+file,result.bytes);manifest[url]='/game-data/portraits/'+file;bytesTotal+=result.bytes.length;ok++;}else failures.push({...entry,error:lastError});
+ if(index%100===0)console.log('Portrait audit',index,'/',entries.length,'cached',ok,'failures',failures.length);
+ await new Promise(r=>setTimeout(r,80));
+}}));
+fs.writeFileSync('src/data/portraitAssets.json',JSON.stringify(manifest));fs.writeFileSync('tmp/portrait-audit-failures.json',JSON.stringify({failures,localMissing}));fs.writeFileSync('docs/portrait-cache-summary.json',JSON.stringify({checked:entries.length,cached:ok,bytes:bytesTotal,failed:failures.length,missingLocal:localMissing.length},null,2));console.log('DONE',{checked:entries.length,cached:ok,MB:Math.round(bytesTotal/1048576),failed:failures.length,missingLocal:localMissing.length});console.log('Failure samples',failures.slice(0,12).map(p=>[p.players[0].name,p.error]));

@@ -27,7 +27,7 @@ export const messages = {
   auth_invalidEmail: ['To‘g‘ri email manzilini kiriting.', 'Введите корректный адрес почты.', 'Enter a valid email address.'],
   auth_invalidPassword: ['Parol 8–128 ta belgidan iborat bo‘lsin.', 'Пароль должен содержать 8–128 символов.', 'Your password must contain 8–128 characters.'],
   auth_invalidRequest: ['So‘rov yuborilmadi. Sahifani yangilab qayta urinib ko‘ring.', 'Обновите страницу и повторите попытку.', 'Refresh the page and try again.'],
-  auth_emailUsed: ['Bu email bilan akkaunt mavjud. Kirish tugmasidan foydalaning.', 'Аккаунт с этой почтой уже существует. Войдите в него.', 'An account with this email exists. Please log in.'],
+  auth_emailUsed: ['Bu akkaunt allaqachon mavjud. Kirish tugmasini bosib akkauntga kiring.', 'Этот аккаунт уже существует. Нажмите «Войти», чтобы войти в аккаунт.', 'This account already exists. Click Log in to access your account.'],
   auth_credentials: ['Email yoki parol noto‘g‘ri.', 'Неверная почта или пароль.', 'Incorrect email or password.'],
   auth_tooMany: ['Urinishlar ko‘payib ketdi. Birozdan so‘ng qayta urinib ko‘ring.', 'Слишком много попыток. Попробуйте позже.', 'Too many attempts. Please try again later.'],
   auth_unavailable: ['Kirish xizmati hozir ishlamayapti. Keyinroq urinib ko‘ring.', 'Сервис входа сейчас недоступен. Попробуйте позже.', 'The sign-in service is unavailable. Please try again later.'],

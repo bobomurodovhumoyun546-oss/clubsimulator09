@@ -1,5 +1,6 @@
+import {starterCards,ownedStarterCards} from './starterCards.js';
 export function inventoryPlayers(players,club){
- const originals=players.filter(p=>!p.copyOf),lookup=new Map(originals.map(p=>[p.id,p]));
+ const originals=[...new Map([...players.filter(p=>!p.copyOf),...starterCards(club),...ownedStarterCards(club)].map(p=>[p.id,p])).values()],lookup=new Map(originals.map(p=>[p.id,p]));
  const copies=Object.entries(club.cardCopies||{}).flatMap(([id,copyOf])=>{
   const player=lookup.get(copyOf);
   return player&&!lookup.has(id)?[{...player,id,copyOf,basePlayerId:player.basePlayerId||player.id}]:[];

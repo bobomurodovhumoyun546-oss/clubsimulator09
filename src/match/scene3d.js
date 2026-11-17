@@ -31,7 +31,7 @@ export function mountMatch(parent,state,controls,onUpdate,onError=()=>{}){
  const shadows=state.players.map(()=>{const shadow=new THREE.Mesh(shadowGeometry,shadowMaterial);shadow.rotation.x=-Math.PI/2;shadow.position.y=.025;scene.add(shadow);return shadow;});
  const ballShadow=new THREE.Mesh(new THREE.PlaneGeometry(.85,.85),shadowMaterial);ballShadow.rotation.x=-Math.PI/2;ballShadow.position.y=.02;scene.add(ballShadow);
  const keyboard=createMatchKeyboard(parent,window,clearInput),{held,pressed,released}=keyboard;
- function clearInput(){for(const key of ['up','down','left','right','sprint','shoot','gk','rainbow','fakeShot','laneChange','elastico','pass','through','long','switch','release'])controls.current[key]=false;charge=0;}
+ function clearInput(){for(const key of ['up','down','left','right','sprint','shoot','gk','rainbow','fakeShot','laneChange','elastico','pass','through','long','switch','release'])controls.current[key]=false;controls.current.joystick=null;charge=0;}
  function focus(){parent.focus();}
  function contextLost(event){event.preventDefault();state.paused=true;onError('3D graphics context was lost. Close the match and try Low graphics.');}
  renderer.domElement.addEventListener('pointerdown',focus);renderer.domElement.addEventListener('webglcontextlost',contextLost);
