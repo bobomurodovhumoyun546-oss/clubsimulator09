@@ -1,4 +1,5 @@
 import {saveClubSnapshot} from '../utils/clubSaveStore.js';
+import {loadCareer,careerCommand} from '../utils/careerStore.js';
 import {starterStatus,claimStarterTeam} from '../utils/starterTeam.js';
 import {leagueGroup} from '../../src/features/leagueGroups.js';
 import {listGifts,claimGift} from '../utils/gifts.js';
@@ -71,6 +72,8 @@ export function createAccountRouter(db=openAccountStore(),options={}) {
   router.get('/quizzes',async (req,res)=>res.json({quizzes:(await db.prepare('SELECT q.id,q.title,q.questions,q.created,u.name AS author FROM quizzes q JOIN users u ON q.user_id=u.id ORDER BY q.created DESC LIMIT 100').all()).map(q=>({...q,questions:JSON.parse(q.questions)}))}));
   router.get('/clubs',async (req,res)=>res.json({group:leagueGroup(req.account?.id),clubs:(await db.prepare('SELECT u.id,u.name AS owner,COALESCE(c.name,u.name || \' FC\') AS name,COALESCE(c.season,1) AS season,COALESCE(c.played,0) AS played,COALESCE(c.wins,0) AS wins,COALESCE(c.draws,0) AS draws,COALESCE(c.losses,0) AS losses,COALESCE(c.goals_for,0) AS goalsFor,COALESCE(c.goals_against,0) AS goalsAgainst FROM users u LEFT JOIN simulator_clubs c ON c.user_id=u.id').all()).filter(c=>req.account&&leagueGroup(c.id)===leagueGroup(req.account.id))}));
   router.use((req,res,next)=>req.account?next():res.status(401).json({code:'credentials'}));
+  router.get('/career',async(req,res,next)=>{try{res.set('Cache-Control','no-store').json(await loadCareer(db,req.account.id,{filters:req.query}));}catch(error){if(error.code)res.status(error.status||400).json({code:error.code});else next(error);}});
+  router.post('/career',async(req,res,next)=>{try{res.set('Cache-Control','no-store').json(await careerCommand(db,req.account.id,req.body));}catch(error){if(error.code)res.status(error.status||400).json({code:error.code});else next(error);}});
   router.get('/starter-team',async(req,res)=>res.json(await starterStatus(db,req.account.id)));
   router.post('/starter-team',async(req,res)=>{const result=await claimStarterTeam(db,req.account.id,req.body?.teamId);if(result.error)return res.status(result.status).json({code:result.error});res.json(result);});
   router.get('/gifts',async(req,res)=>res.json({gifts:await listGifts(db,req.account.id)}));

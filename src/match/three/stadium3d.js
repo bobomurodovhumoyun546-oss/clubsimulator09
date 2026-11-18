@@ -23,14 +23,14 @@ function goal(scene,side){
  const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));const net=new THREE.LineSegments(geometry,new THREE.LineBasicMaterial({color:0xd6e4de,transparent:true,opacity:.55}));scene.add(net);
 }
 function boardTexture(){const canvas=document.createElement('canvas');canvas.width=512;canvas.height=96;const c=canvas.getContext('2d');c.fillStyle='#133751';c.fillRect(0,0,512,96);c.fillStyle='#8de6ec';c.font='bold 38px Arial';c.textAlign='center';c.fillText('CLUBSIM',256,48);c.fillStyle='#dcefe8';c.font='13px Arial';c.fillText('THE BEAUTIFUL GAME',256,75);const t=new THREE.CanvasTexture(canvas);t.colorSpace=THREE.SRGBColorSpace;return t;}
-export function createStadium(scene,low=false){
+export function createStadium(scene,low=false,custom={}){
  const ground=new THREE.Mesh(new THREE.PlaneGeometry(150,120),mat(0x295338));ground.rotation.x=-Math.PI/2;ground.position.y=-.045;ground.receiveShadow=true;scene.add(ground);
  const pitch=new THREE.Mesh(new THREE.PlaneGeometry(105,68),mat(0xffffff,{map:grassTexture()}));pitch.rotation.x=-Math.PI/2;pitch.receiveShadow=true;scene.add(pitch);
  for(const side of [-1,1])goal(scene,side);
  const ads=new THREE.InstancedMesh(new THREE.BoxGeometry(7.7,1,.22),mat(0xffffff,{map:boardTexture()}),28),dummy=new THREE.Object3D();let count=0;
  for(const side of [-1,1])for(let i=0;i<14;i++){dummy.position.set(-50+i*7.7,.55,side*37);dummy.rotation.y=side===1?Math.PI:0;dummy.updateMatrix();ads.setMatrixAt(count++,dummy.matrix);}scene.add(ads);
  for(const side of [-1,1]){
-  for(let tier=0;tier<7;tier++){box(scene,126,.5,2,0x46535d,0,1+tier*.65,side*(41+tier*1.8));box(scene,2,.5,86,0x3b4f5a,side*(61+tier*1.8),1+tier*.65,0);}
+  for(let tier=0;tier<7;tier++){box(scene,126,.5,2,custom?.seatColor||0x46535d,0,1+tier*.65,side*(41+tier*1.8));box(scene,2,.5,86,custom?.seatColor||0x3b4f5a,side*(61+tier*1.8),1+tier*.65,0);}
   box(scene,132,2,1.5,0x223a49,0,6.5,side*55);box(scene,1.5,2,98,0x223a49,side*75,6.5,0);
  }
  const crowd=new THREE.Group(),rows=low?4:7,columns=low?85:150,total=rows*columns*4,spectators=new THREE.InstancedMesh(new THREE.CapsuleGeometry(.15,.23,2,5),mat(0xffffff),total),color=new THREE.Color();let n=0;
@@ -47,5 +47,5 @@ export function createStadium(scene,low=false){
 export function createWeather(scene,low=false){
  const count=low?160:500,positions=new Float32Array(count*3);for(let i=0;i<count;i++){positions[i*3]=(i*17.31)%130-65;positions[i*3+1]=(i*7.77)%26;positions[i*3+2]=(i*11.73)%95-47.5;}
  const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.BufferAttribute(positions,3));const particles=new THREE.Points(geometry,new THREE.PointsMaterial({color:0xe8f5fc,size:.16,transparent:true,opacity:.65,depthWrite:false}));particles.frustumCulled=false;scene.add(particles);
- return {particles,update(weather,dt){particles.visible=weather!=='clear';if(!particles.visible)return;const rain=weather==='rain';particles.material.size=rain?.075:.18;particles.material.opacity=rain?.4:.75;for(let i=0;i<count;i++){positions[i*3+1]-=dt*(rain?21:2.7);positions[i*3]+=dt*(rain?2:.35);if(positions[i*3+1]<.1)positions[i*3+1]=26;if(positions[i*3]>65)positions[i*3]=-65;}geometry.attributes.position.needsUpdate=true;}};
+ return {particles,update(weather,dt){particles.visible=weather==='rain'||weather==='snow';if(!particles.visible)return;const rain=weather==='rain';particles.material.size=rain?.075:.18;particles.material.opacity=rain?.4:.75;for(let i=0;i<count;i++){positions[i*3+1]-=dt*(rain?21:2.7);positions[i*3]+=dt*(rain?2:.35);if(positions[i*3+1]<.1)positions[i*3+1]=26;if(positions[i*3]>65)positions[i*3]=-65;}geometry.attributes.position.needsUpdate=true;}};
 }

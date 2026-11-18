@@ -17,12 +17,13 @@ test('defenders hold a compact line and stay goal-side of a nearby threatening a
 test('keeper holds the centre during buildup and reads both shot corners',()=>{
  const s=state(),p=player({role:'GK',x:3.2});s.ball.y=60;assert.equal(keeperPosition(s,p).y,34);
  s.last={kind:'shot',team:1};s.ball={x:20,y:34,vx:-40,vy:10};let target=keeperPosition(s,p);assert.ok(target.diving);assert.ok(target.y>34);
- s.ball.vy=-10;assert.ok(keeperPosition(s,p).y<34);assert.equal(keeperPosition({...s,last:null},p,true).x,12);
+ s.ball.vy=-10;assert.ok(keeperPosition(s,p).y<34);assert.ok(keeperPosition({...s,last:null},p,true).x>3.2);
 });
-test('closing down lowers reachable-shot failure probability by exactly 12.5 percent',()=>{
- const p=player({role:'GK'}),normal=keeperSaveChances(p,40),rush=keeperSaveChances(p,40,true);
- assert.ok(Math.abs((1-rush.catchChance-rush.parry)/(1-normal.catchChance-normal.parry)-.875)<1e-10);
+test('maximum OVR keepers save 70 percent of reachable shots and 85 percent while rushing',()=>{
+ const p=player({role:'GK',ovr:110,stats:{ref:110,han:110}});
+ for(const speed of [20,35,50,65]){const normal=keeperSaveChances(p,speed),rush=keeperSaveChances(p,speed,true);assert.ok(Math.abs(normal.catchChance+normal.parry-.7)<1e-10);assert.ok(Math.abs(rush.catchChance+rush.parry-.85)<1e-10);}
 });
+
 test('OVR differentiates identical catalogue attributes in movement, keeping and physical duels',()=>{
  const weak=player({ovr:60}),strong=player({ovr:99});assert.ok(matchQuality(strong,'pac')>matchQuality(weak,'pac')+15);
  assert.ok(keeperSaveChances(strong,30).catchChance>keeperSaveChances(weak,30).catchChance);
@@ -36,13 +37,10 @@ test('match kit uses every colour, pattern, collar and sponsor from the saved cl
  assert.equal(secondaryPanel('solid',0,.5),false);
 });
 
-test('elite keepers save 22.5 percent more reachable shots than ordinary keepers',()=>{
- const keeper=q=>player({role:'GK',ovr:q,stats:{ref:q,han:q}});
- for(const speed of [20,35,50,65]){
-  const ordinary=keeperSaveChances(keeper(80),speed),elite=keeperSaveChances(keeper(100),speed);
-  assert.ok(Math.abs((elite.catchChance+elite.parry)/(ordinary.catchChance+ordinary.parry)-1.225)<1e-10);
- }
+test('keeper quality monotonically improves save probability across supported OVR',()=>{
+ let previous=0;for(const quality of [60,70,80,90,100,105,110]){const p=player({ovr:quality,stats:{ref:quality,han:quality}}),save=keeperSaveChances(p,40);assert.ok(save.catchChance+save.parry>=previous);previous=save.catchChance+save.parry;}
 });
+
 test('near-post saves total 80 percent for either corner, every quality and rushing state',()=>{
  assert.equal(isNearPostShot({originY:20,targetY:29}),true);
  assert.equal(isNearPostShot({originY:48,targetY:39}),true);

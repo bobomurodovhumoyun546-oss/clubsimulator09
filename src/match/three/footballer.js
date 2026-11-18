@@ -1,4 +1,5 @@
-﻿import * as THREE from 'three';
+﻿import {attachPortraitFace,portraitFaceProfile} from './portraitFace.js';
+import * as THREE from 'three';
 import {drawKitBadge,loadKitBadge} from '../../features/clubBadge.js';
 import {matchKit,secondaryPanel} from './kit.js';
 import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
@@ -22,7 +23,7 @@ function limb(parent,position,lengths,radii,upperMat,lowerMat,handMat,isLeg){
 function torsoGeometry(){const profile=[[.16,0],[.18,.13],[.225,.36],[.21,.44],[.115,.51]],points=[];for(let i=0;i<profile.length-1;i++)for(let j=0;j<8;j++){const t=j/8;points.push(new THREE.Vector2(THREE.MathUtils.lerp(profile[i][0],profile[i+1][0],t),THREE.MathUtils.lerp(profile[i][1],profile[i+1][1],t)));}points.push(new THREE.Vector2(...profile.at(-1)));return new THREE.LatheGeometry(points,32);}
 export function createFootballer(player,number=1,club={}){
  const kit=matchKit(club,player.team);
- const seed=hash(player.baseId||player.id||'referee'),skin=material([0xb97950,0xdbac81,0x805139,0xc28f66,0xe5ba94][seed%5]),hair=material([0x281e19,0x322720,0x171b1b,0x60452c][seed%4]);
+ const seed=hash(player.baseId||player.id||'referee'),skin=material(portraitFaceProfile(player.portrait)?.skin||[0xb97950,0xdbac81,0x805139,0xc28f66,0xe5ba94][seed%5]),hair=material([0x281e19,0x322720,0x171b1b,0x60452c][seed%4]);
  const shirt=material(player.role==='REF'?0xf7ca45:player.role==='GK'?(player.team?0x983ee0:0xe9bc39):kit.primary),shorts=material(kit.shorts),socks=material(kit.socks),sleeves=material(player.role==='GK'||player.role==='REF'?shirt.color:kit.sleeves),trim=material(kit.trim),boots=material(seed%2?0xff8d42:0xd6e94f);
  const root=new THREE.Group(),body=new THREE.Bone();root.add(body);
  const shirtGeometry=torsoGeometry();
@@ -44,13 +45,16 @@ export function createFootballer(player,number=1,club={}){
  const brow=material(0x30251e),lip=material(0x805449);
  for(const side of [-1,1]){
   mesh(head,sphere,skin,[side*faceWidth,-.01,0],[.02,.027+(seed%5)*.002,.016]);
+  if(player.portrait)continue;
   mesh(head,sphere,material(0xe8e3d6),[side*eyeSpacing,.017,.099],[.016,.009,.008]);
   mesh(head,sphere,material([0x38271b,0x314e42,0x496779][(seed>>>21)%3]),[side*eyeSpacing,.017,.106],[.007,.007,.004]);
   const eyebrow=mesh(head,sphere,brow,[side*eyeSpacing,.039,.1],[.019,.005,.006]);eyebrow.rotation.z=side*((seed%5)-2)*.08;
  }
- mesh(head,sphere,lip,[0,-.06,.101],[.024+(seed%6)*.002,.004,.006]);
- if((seed>>>24)%3===0)mesh(head,new THREE.SphereGeometry(1,12,6,0,Math.PI*2,Math.PI*.61,Math.PI*.37),hair,[0,-.006,.003],[faceWidth*1.015,faceHeight*.98,.108]);
- mesh(head,sphere,skin,[0,-.012,.112],[.019+(seed%7)*.002,.023+((seed>>>7)%5)*.002,.02+((seed>>>11)%6)*.002]);
+ if(!player.portrait){
+  mesh(head,sphere,lip,[0,-.06,.101],[.024+(seed%6)*.002,.004,.006]);
+  if((seed>>>24)%3===0)mesh(head,new THREE.SphereGeometry(1,12,6,0,Math.PI*2,Math.PI*.61,Math.PI*.37),hair,[0,-.006,.003],[faceWidth*1.015,faceHeight*.98,.108]);
+  mesh(head,sphere,skin,[0,-.012,.112],[.019+(seed%7)*.002,.023+((seed>>>7)%5)*.002,.02+((seed>>>11)%6)*.002]);
+ }
  mesh(body,sphere,shorts,[0,.99,0],[.185,.13,.12]);
  const arms=[-1,1].map(side=>{
   mesh(body,sphere,sleeves,[side*.22,1.45,0],[.08,.095,.09]);
@@ -73,6 +77,7 @@ export function createFootballer(player,number=1,club={}){
   const front=document.createElement('canvas');front.width=128;front.height=64;const paint=front.getContext('2d');paint.fillStyle=kit.text;paint.textAlign='center';paint.font='bold 12px Arial';drawKitBadge(paint,{...club,primary:kit.primary,secondary:kit.secondary});paint.fillStyle=kit.text;paint.font='bold 14px Arial';paint.fillText(kit.sponsor.slice(0,17).toUpperCase(),64,42);
   const print=new THREE.CanvasTexture(front);print.colorSpace=THREE.SRGBColorSpace;let printDisposed=false;print.addEventListener('dispose',()=>{printDisposed=true;});if(club.badgeTeamId)void loadKitBadge(club).then(image=>{if(!image||printDisposed)return;paint.clearRect(0,0,128,64);drawKitBadge(paint,{...club,primary:kit.primary,secondary:kit.secondary});paint.fillStyle=kit.text;paint.textAlign='center';paint.font='bold 14px Arial';paint.fillText(kit.sponsor.slice(0,17).toUpperCase(),64,42);print.needsUpdate=true;});const patch=new THREE.Mesh(new THREE.PlaneGeometry(.34,.18),new THREE.MeshBasicMaterial({map:print,transparent:true,depthWrite:false}));patch.position.set(0,1.32,.155);body.add(patch);
  }
+ if(player.portrait)attachPortraitFace(head,player);
  bakeRig(root);root.scale.setScalar(1.35);
  const figure={root,body,head,torso,arms,legs,yaw:player.team?-Math.PI/2:Math.PI/2,pose:'idle'};root.rotation.y=figure.yaw;return figure;
 }
@@ -91,7 +96,13 @@ export function updateFootballer(figure,player,time,dt,index=0){
  if(state==='elastico'){target.roll=skillPhase<.38?.24:-.24;target.leg1=skillPhase<.38?-.75:.55;target.knee1=.5;target.arm0=-.5;target.arm1=.5;}
  if(state==='tackle'){target.leg1=-.9;target.knee0=.55;target.height=-.15;target.lean=.25;}
  if(state==='slide'){target.leg1=-1.3;target.leg0=-.6;target.knee0=1.3;target.height=-.67;target.roll=.4;target.lean=-.5;target.arm0=-.9;target.arm1=.8;}
- if(state==='celebrate'){target.raise=2.6;target.arm0=-.3;target.arm1=-.3;target.height=Math.abs(Math.sin(time*8))*.16;}
+ if(state==='celebrate'){
+  const style=visual?.style||'arms';target.raise=style==='salute'?.1:style==='dance'?1.3:2.6;target.arm0=-.3;target.arm1=-.3;
+  if(style==='jump'){target.height=Math.abs(Math.sin(time*5))*.38;target.knee0=.35;target.knee1=.35;}
+  else if(style==='dance'){target.roll=Math.sin(time*7)*.18;target.leg0=Math.sin(time*7)*.35;target.leg1=-target.leg0;}
+  else if(style==='salute'){target.raise1=2;target.arm1=-.8;target.fore1=-1.9;}
+  else target.height=Math.abs(Math.sin(time*5))*.08;
+ }
  if(state==='dive'){target.roll=1.25*(visual?.rollSign||1);target.height=-.65;target.raise=2.5;target.arm0=-.6;target.arm1=-.6;}
  if(state==='throw'){target.raise=2.6;target.fore0=-1;target.fore1=-1;}
  if(state==='yellow'||state==='red'){target.raise1=2.7;target.arm1=-.1;}
@@ -107,7 +118,7 @@ export function updateFootballer(figure,player,time,dt,index=0){
 // while avoiding hundreds of separate body-part draw calls on mobile.
 function bakeRig(root){
  root.updateMatrixWorld(true);const bones=[],parts=[],originals=[];root.traverse(o=>{if(o.isBone)bones.push(o);});
- root.traverse(object=>{if(!object.isMesh||object.material.map)return;const geometry=object.geometry.index?object.geometry.toNonIndexed():object.geometry.clone();geometry.applyMatrix4(object.matrixWorld);const count=geometry.attributes.position.count,color=object.material.color,colors=new Float32Array(count*3),indices=new Uint16Array(count*4),weights=new Float32Array(count*4);let bone=object.parent;while(bone&&!bone.isBone)bone=bone.parent;const index=Math.max(0,bones.indexOf(bone));for(let i=0;i<count;i++){colors.set(geometry.attributes.color?[geometry.attributes.color.getX(i),geometry.attributes.color.getY(i),geometry.attributes.color.getZ(i)]:[color.r,color.g,color.b],i*3);indices[i*4]=index;weights[i*4]=1;}geometry.setAttribute('color',new THREE.BufferAttribute(colors,3));geometry.setAttribute('skinIndex',new THREE.BufferAttribute(indices,4));geometry.setAttribute('skinWeight',new THREE.BufferAttribute(weights,4));parts.push(geometry);originals.push(object);});
+ root.traverse(object=>{if(!object.isMesh||object.material.map||object.userData.portraitFace)return;const geometry=object.geometry.index?object.geometry.toNonIndexed():object.geometry.clone();geometry.applyMatrix4(object.matrixWorld);const count=geometry.attributes.position.count,color=object.material.color,colors=new Float32Array(count*3),indices=new Uint16Array(count*4),weights=new Float32Array(count*4);let bone=object.parent;while(bone&&!bone.isBone)bone=bone.parent;const index=Math.max(0,bones.indexOf(bone));for(let i=0;i<count;i++){colors.set(geometry.attributes.color?[geometry.attributes.color.getX(i),geometry.attributes.color.getY(i),geometry.attributes.color.getZ(i)]:[color.r,color.g,color.b],i*3);indices[i*4]=index;weights[i*4]=1;}geometry.setAttribute('color',new THREE.BufferAttribute(colors,3));geometry.setAttribute('skinIndex',new THREE.BufferAttribute(indices,4));geometry.setAttribute('skinWeight',new THREE.BufferAttribute(weights,4));parts.push(geometry);originals.push(object);});
  const geometry=mergeGeometries(parts,false);parts.forEach(part=>part.dispose());originals.forEach(part=>part.removeFromParent());
  const mesh=new THREE.SkinnedMesh(geometry,new THREE.MeshStandardMaterial({vertexColors:true,roughness:.82}));mesh.castShadow=true;mesh.receiveShadow=true;mesh.frustumCulled=false;root.add(mesh);root.updateMatrixWorld(true);mesh.bind(new THREE.Skeleton(bones));root.userData.skinnedMesh=mesh;
 }

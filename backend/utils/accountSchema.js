@@ -1,6 +1,8 @@
 // Shared schema for local SQLite and remote libSQL databases.
 export const coreSchema = `
 PRAGMA foreign_keys=ON;
+    CREATE TABLE IF NOT EXISTS career_states(user_id TEXT PRIMARY KEY REFERENCES users(id),state TEXT NOT NULL,revision INTEGER NOT NULL DEFAULT 0,updated INTEGER NOT NULL);
+    CREATE INDEX IF NOT EXISTS career_states_updated ON career_states(updated);
     CREATE TABLE IF NOT EXISTS starter_choices(user_id TEXT PRIMARY KEY,team_id TEXT NOT NULL,claim_id TEXT NOT NULL,created TEXT NOT NULL);
 
     CREATE TABLE IF NOT EXISTS club_saves(user_id TEXT PRIMARY KEY REFERENCES users(id),state TEXT NOT NULL,updated TEXT NOT NULL);

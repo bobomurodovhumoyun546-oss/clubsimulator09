@@ -14,3 +14,5 @@
 @media(max-width:750px){.pm-canvas{height:68vh;min-height:330px}.pm-notice{top:8px;font-size:13px;padding:8px 12px}}
 
 .pm-skills{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;padding:8px 12px;background:#102632}.pm-skills .pm-control{border-color:#348477;color:#b9f5df}
+.pm-goal-scorer{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);display:grid;gap:.25rem;min-width:min(22rem,80%);padding:.9rem 1.8rem;border-left:4px solid #bdf67b;background:linear-gradient(100deg,#071a21f5,#12332de8);color:white;box-shadow:0 8px 35px #0007;pointer-events:none;text-align:center;z-index:12;border-radius:.4rem}
+.pm-goal-scorer span{font-size:.72rem;letter-spacing:.18em;color:#bdf67b}.pm-goal-scorer strong{font-size:clamp(1.1rem,3vw,1.8rem)}
